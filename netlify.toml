@@ -1,0 +1,9 @@
+# Netlify config for the Nice Almaty static site.
+[build]
+  publish = "."
+
+# Serve the main page at the root URL.
+[[redirects]]
+  from = "/"
+  to = "/nice-almaty.html"
+  status = 200

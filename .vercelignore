@@ -1,0 +1,4 @@
+# Internal gstack runtime files (contain local tokens) — never deploy.
+.gstack
+# Netlify config is irrelevant on Vercel.
+netlify.toml

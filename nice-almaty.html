@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nice Almaty — Дом Студентов</title>
+
+<style>
+  /* cyrillic-ext */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  /* cyrillic-ext */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+  /* cyrillic */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  /* latin */
+  @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; font-display: swap; src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  :root {
+    --yellow: #F5C842;
+    --yellow-light: #FDE98A;
+    --yellow-dark: #C9A020;
+    --blue: #1A3A8F;
+    --blue-light: #2D5BC4;
+    --blue-dark: #0F2260;
+    --dark: #111827;
+    --gray: #374151;
+    --muted: #6B7280;
+    --bg: #F9FAFB;
+    --white: #FFFFFF;
+    --card-shadow: 0 4px 24px rgba(26,58,143,0.10);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); }
+
+  /* ─── NAV ─── */
+  nav {
+    background: var(--blue-dark);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 68px;
+    position: sticky; top: 0; z-index: 200;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+  .logo-circle {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .logo-text { line-height: 1.15; }
+  .logo-text .t1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1rem; color: var(--white); letter-spacing: 0.04em; }
+  .logo-text .t2 { font-size: 0.65rem; color: var(--yellow-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-phone { color: var(--yellow); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .nav-phone:hover { color: var(--yellow-light); }
+  .nav-btn {
+    background: var(--yellow); color: var(--blue-dark);
+    border: none; border-radius: 100px; padding: 0.5rem 1.3rem;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.82rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .nav-btn:hover { background: var(--yellow-light); }
+
+  /* ─── HERO ─── */
+  #page-home { display: block; }
+  #page-detail { display: none; }
+
+  .hero {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, #1e4db7 100%);
+    padding: 5rem 2rem 4rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 120%, rgba(245,200,66,0.18) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(245,200,66,0.15); border: 1px solid rgba(245,200,66,0.4);
+    color: var(--yellow); padding: 0.35rem 1.1rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900;
+    color: var(--white); line-height: 1.1; letter-spacing: -0.02em;
+    position: relative; z-index: 1; margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--yellow); }
+  .hero p {
+    color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 2.5rem;
+    font-size: 1.05rem; line-height: 1.7; position: relative; z-index: 1;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .hstat { text-align: center; }
+  .hstat-num { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; color: var(--yellow); }
+  .hstat-label { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.2rem; }
+
+  /* ─── CATALOG ─── */
+  .catalog-section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+  .catalog-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+  .catalog-head h2 { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; color: var(--blue-dark); }
+  .catalog-head p { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+  .filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .filter-btn {
+    border: 2px solid var(--blue); color: var(--blue); background: transparent;
+    border-radius: 100px; padding: 0.4rem 1.1rem; font-weight: 600; font-size: 0.8rem;
+    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .filter-btn.active, .filter-btn:hover { background: var(--blue); color: var(--white); }
+
+  .houses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
+
+  .house-card {
+    background: var(--white); border-radius: 20px;
+    box-shadow: var(--card-shadow); overflow: hidden;
+    cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+    border: 2px solid transparent;
+  }
+  .house-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(26,58,143,0.18); border-color: var(--yellow); }
+
+  .house-thumb {
+    height: 220px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .house-thumb svg { width: 100%; height: 100%; }
+  .house-thumb-img { width: 100%; height: 100%; object-fit: cover; }
+
+  .thumb-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--yellow); color: var(--blue-dark);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+  .thumb-price {
+    position: absolute; bottom: 12px; right: 12px;
+    background: var(--blue-dark); color: var(--white);
+    padding: 0.3rem 0.85rem; border-radius: 100px;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.78rem;
+  }
+
+  .house-body { padding: 1.5rem; }
+  .house-name { font-family: 'Montserrat', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--blue-dark); margin-bottom: 0.3rem; }
+  .house-addr { color: var(--muted); font-size: 0.82rem; display: flex; align-items: center; gap: 0.35rem; margin-bottom: 1rem; }
+  .house-features { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .feat-tag {
+    background: #EEF2FF; color: var(--blue);
+    padding: 0.22rem 0.65rem; border-radius: 6px;
+    font-size: 0.72rem; font-weight: 600;
+  }
+  .house-footer { display: flex; align-items: center; justify-content: flex-end; padding-top: 1rem; }
+  .card-cta {
+    background: var(--blue); color: var(--white);
+    border: none; border-radius: 100px; padding: 0.5rem 1.2rem;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.78rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .card-cta:hover { background: var(--blue-light); }
+
+  /* ─── DETAIL PAGE ─── */
+  .detail-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--blue); font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; margin-bottom: 2rem; transition: gap 0.2s;
+    background: none; border: none;
+  }
+  .detail-back:hover { gap: 0.8rem; }
+
+  .detail-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .detail-grid { display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem; align-items: start; }
+
+  /* Gallery */
+  .gallery { border-radius: 20px; overflow: hidden; }
+  .gallery-main { height: 340px; background: #ddd; position: relative; overflow: hidden; }
+  .gallery-main-img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-thumbs { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
+  .gallery-thumb {
+    flex: 1; height: 80px; border-radius: 10px; overflow: hidden;
+    cursor: pointer; opacity: 0.7; transition: opacity 0.2s; border: 2px solid transparent;
+  }
+  .gallery-thumb.active { opacity: 1; border-color: var(--yellow); }
+  .gallery-thumb:hover { opacity: 1; }
+  .gallery-thumb-img { width: 100%; height: 100%; object-fit: cover; }
+
+  .detail-info { margin-top: 2rem; }
+  .detail-info h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--blue-dark); margin-bottom: 0.4rem; }
+  .detail-addr { color: var(--muted); display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; margin-bottom: 1.3rem; }
+  .detail-desc { color: var(--gray); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+  .amenities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
+  .amenity {
+    background: #EEF2FF; border-radius: 12px; padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; font-weight: 600; color: var(--blue);
+  }
+
+  /* Reviews */
+  .reviews-section { margin-top: 2.5rem; }
+  .review-card { background: var(--white); border: 1px solid #E5E7EB; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .review-author { font-weight: 600; font-size: 0.95rem; color: var(--blue-dark); }
+  .review-stars { color: #F59E0B; font-size: 1rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+  /* Sidebar */
+  .detail-sidebar { position: sticky; top: 90px; }
+  .sidebar-card {
+    background: var(--white); border-radius: 20px;
+    box-shadow: var(--card-shadow); padding: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .price-block { text-align: center; padding-bottom: 1.2rem; border-bottom: 1px solid #E5E7EB; margin-bottom: 1.2rem; }
+  .price-from { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .price-num { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; color: var(--blue-dark); }
+  .price-period { font-size: 0.8rem; color: var(--muted); }
+  .rooms-avail { background: #F0FDF4; border-radius: 10px; padding: 0.6rem 1rem; font-size: 0.85rem; color: #16A34A; font-weight: 600; margin-bottom: 1.2rem; }
+  .book-btn {
+    width: 100%; background: var(--yellow); color: var(--blue-dark);
+    border: none; border-radius: 100px; padding: 0.9rem;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.95rem;
+    cursor: pointer; transition: background 0.2s; margin-bottom: 0.6rem;
+  }
+  .book-btn:hover { background: var(--yellow-light); }
+  .call-btn {
+    width: 100%; background: var(--blue-dark); color: var(--white);
+    border: none; border-radius: 100px; padding: 0.9rem;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .call-btn:hover { background: var(--blue); }
+
+  /* Admin card */
+  .admin-card { background: var(--white); border-radius: 20px; box-shadow: var(--card-shadow); padding: 1.5rem; }
+  .admin-card h4 { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .admin-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.2rem; }
+  .admin-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--yellow), var(--blue-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); flex-shrink: 0;
+  }
+  .admin-name { font-weight: 700; font-size: 0.95rem; color: var(--dark); }
+  .admin-role { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.6rem 0; border-bottom: 1px solid #F3F4F6;
+    font-size: 0.85rem;
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-item-icon { font-size: 1rem; width: 20px; text-align: center; }
+  .contact-item a { color: var(--blue); text-decoration: none; font-weight: 500; }
+  .contact-item a:hover { color: var(--blue-light); }
+
+  /* map placeholder */
+  .map-ph {
+    margin-top: 1.5rem; background: #E0E7FF; border-radius: 16px;
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    color: var(--blue); font-weight: 600; font-size: 0.9rem; gap: 0.5rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .map-ph:hover { background: #C7D2FE; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--blue-dark); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 2rem; font-size: 0.82rem;
+    margin-top: 4rem;
+  }
+  footer span { color: var(--yellow); font-weight: 700; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.2rem; gap: 0.6rem; }
+    nav > .social-links { display: none; }
+    .nav-right { gap: 0.7rem; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-sidebar { position: static; }
+    .houses-grid { grid-template-columns: 1fr; }
+    .nav-right .nav-phone { display: none; }
+  }
+
+  /* Placeholder thumb colors */
+  .thumb-bg1 { background: linear-gradient(135deg, #1A3A8F 0%, #2D5BC4 50%, #F5C842 100%); }
+  .thumb-bg2 { background: linear-gradient(135deg, #0F2260 0%, #1A3A8F 50%, #F5C842 100%); }
+  .thumb-bg3 { background: linear-gradient(135deg, #1e4db7 0%, #0F2260 60%, #C9A020 100%); }
+  .thumb-bg4 { background: linear-gradient(135deg, #2D5BC4 0%, #1A3A8F 40%, #F5C842 100%); }
+  .thumb-bg5 { background: linear-gradient(135deg, #0F2260 0%, #2D5BC4 70%, #FDE98A 100%); }
+
+  .thumb-icon { font-size: 4rem; opacity: 0.55; }
+
+  @media (max-width: 480px) {
+    .houses-grid { grid-template-columns: 1fr !important; gap: 1.2rem; }
+    .house-thumb { height: 180px; }
+    .catalog-section { padding: 2rem 1rem; }
+    .hero { padding: 4rem 1rem 2.5rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-stats { gap: 1.5rem; }
+    .hstat-num { font-size: 1.5rem; }
+    .detail-wrap { padding: 1.5rem 1rem; }
+    .detail-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .detail-sidebar { position: static; }
+    .gallery-main { height: 240px; }
+    .amenities-grid { grid-template-columns: 1fr 1fr !important; }
+    .sidebar-card, .admin-card { padding: 1.2rem; }
+    nav { padding: 0 0.9rem; gap: 0.4rem; }
+    .nav-phone { display: none; }
+    .nav-right { gap: 0.5rem; }
+    .logo-circle { width: 38px; height: 38px; font-size: 1rem; }
+    .nav-logo { gap: 0.6rem; }
+    .logo-text .t1 { font-size: 0.85rem; }
+    .logo-text .t2 { font-size: 0.55rem; }
+    .lang-switch { padding: 2px; }
+    .lang-btn { padding: 0.28rem 0.45rem; font-size: 0.66rem; }
+    .nav-btn { padding: 0.5rem 0.85rem; font-size: 0.74rem; }
+  }
+
+  .social-links { display: flex; align-items: center; gap: 0.8rem; }
+  .social-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.1); color: var(--white);
+    border-radius: 100px; padding: 0.4rem 1rem;
+    text-decoration: none; font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .social-btn:hover { background: rgba(255,255,255,0.2); }
+  .social-btn.ig { background: rgba(225,48,108,0.25); }
+  .social-btn.ig:hover { background: rgba(225,48,108,0.45); }
+  .social-btn.tt { background: rgba(0,0,0,0.3); }
+  .social-btn.tt:hover { background: rgba(0,0,0,0.5); }
+  .social-btn.wa { background: rgba(37,211,102,0.22); }
+  .social-btn.wa:hover { background: rgba(37,211,102,0.42); }
+
+  /* ─── LANG SWITCH ─── */
+  .lang-switch {
+    display: flex; align-items: center; gap: 2px;
+    background: rgba(255,255,255,0.1); border-radius: 100px; padding: 3px;
+  }
+  .lang-btn {
+    border: none; background: transparent; color: rgba(255,255,255,0.7);
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem;
+    padding: 0.3rem 0.6rem; border-radius: 100px; cursor: pointer;
+    transition: background 0.2s, color 0.2s; letter-spacing: 0.03em;
+  }
+  .lang-btn:hover { color: var(--white); }
+  .lang-btn.active { background: var(--yellow); color: var(--blue-dark); }
+
+  /* ─── BUS WIDGET (detail page) ─── */
+  .bus-widget { margin-top: 2.5rem; }
+  .bus-widget h3 {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem;
+    color: var(--blue-dark); margin-bottom: 1rem;
+  }
+  .bus-rows { display: flex; flex-direction: column; gap: 0.7rem; }
+  .bus-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    background: var(--white); border: 1px solid #E5E7EB; border-left: 4px solid var(--yellow);
+    border-radius: 12px; padding: 0.85rem 1rem;
+  }
+  .bus-uni {
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--blue-dark); min-width: 150px; flex: 0 0 auto;
+  }
+  .bus-opts { display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
+  .bus-opt { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .bus-opt.alt { opacity: 0.7; }
+  .bus-chip {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: var(--blue-dark); color: #fff;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem;
+    padding: 0.25rem 0.7rem; border-radius: 7px;
+  }
+  .bus-chip::before { content: '🚌'; font-size: 0.78rem; }
+  .bus-arrow { color: var(--muted); font-weight: 700; }
+  .bus-badge { font-size: 0.72rem; font-weight: 600; padding: 0.18rem 0.6rem; border-radius: 100px; }
+  .bus-badge.direct { background: #F0FDF4; color: #16A34A; }
+  .bus-badge.tr { background: #FEF3C7; color: #B45309; }
+  .bus-badge.time { background: #EEF2FF; color: var(--blue); }
+  .bus-empty { color: var(--muted); font-size: 0.82rem; }
+  .bus-note { color: var(--muted); font-size: 0.85rem; padding: 0.4rem 0; }
+  .bus-spin {
+    width: 26px; height: 26px; border: 3px solid #E5E7EB; border-top-color: var(--blue);
+    border-radius: 50%; animation: busspin .8s linear infinite; margin: 0.3rem 0;
+  }
+  @keyframes busspin { to { transform: rotate(360deg); } }
+  @media (max-width: 480px) {
+    .bus-uni { min-width: 0; flex: 1 1 100%; }
+  }
+
+  /* ─── FAQ ─── */
+  .faq-section {
+    max-width: 800px; margin: 0 auto; padding: 3rem 2rem 4rem;
+  }
+  .faq-section h2 {
+    font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900;
+    color: var(--blue-dark); text-align: center; margin-bottom: 2rem;
+  }
+  .faq-item {
+    border: 2px solid #E5E7EB; border-radius: 16px;
+    margin-bottom: 0.8rem; overflow: hidden;
+    transition: border-color 0.25s;
+  }
+  .faq-item.open { border-color: var(--yellow); }
+  .faq-question {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.4rem; text-align: left;
+    font-family: 'Montserrat', sans-serif; font-weight: 700;
+    font-size: 0.97rem; color: var(--dark);
+    transition: color 0.2s;
+  }
+  .faq-item.open .faq-question { color: var(--blue-dark); }
+  .faq-icon {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--blue-dark); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 900; line-height: 1;
+    transition: background 0.25s, transform 0.35s;
+  }
+  .faq-item.open .faq-icon { background: var(--yellow); color: var(--blue-dark); transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+    padding: 0 1.4rem;
+  }
+  .faq-answer-inner {
+    padding-bottom: 1.2rem;
+    color: var(--gray); font-size: 0.92rem; line-height: 1.75;
+  }
+  .faq-item.open .faq-answer { max-height: 400px; }
+
+  @media (max-width: 480px) {
+    .faq-section { padding: 2rem 1rem 3rem; }
+    .faq-section h2 { font-size: 1.4rem; }
+    .faq-question { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showHome(); return false;">
+    <div class="logo-circle">🏠</div>
+    <div class="logo-text">
+      <div class="t1">NICE ALMATY</div>
+      <div class="t2">Дом Студентов</div>
+    </div>
+  </a>
+  <div class="social-links">
+      <a class="social-btn ig" href="https://www.instagram.com/nice_almaty?igsh=MTQ2bHk0emdhcDdlbA==" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn tt" href="https://www.tiktok.com/@nice_almaty?_r=1&_t=ZS-95Lgdzdy1I1" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        TikTok
+      </a>
+      <a class="social-btn wa" href="https://wa.me/77770739990" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.821 9.821 0 001.687 5.494l-.999 3.648 3.801-.94zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <div class="nav-right">
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" data-lang="kz" onclick="setLang('kz')">KZ</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-btn" data-i18n="nav_cta" onclick="document.querySelector('#page-home .catalog-section').scrollIntoView({behavior:'smooth'})">Выбрать дом</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge" data-i18n="hero_badge">📍 Алматы — 5 студенческих домов</div>
+    <h1 data-i18n-html="hero_title">Найди свой<br><span>идеальный дом</span><br>для учёбы</h1>
+    <p data-i18n="hero_sub">Комфортное, безопасное и доступное жильё для студентов в самых удобных районах Алматы</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">5</div><div class="hstat-label" data-i18n="stat_houses">Домов</div></div>
+      <div class="hstat"><div class="hstat-num">100+</div><div class="hstat-label" data-i18n="stat_students">Студентов</div></div>
+      <div class="hstat"><div class="hstat-num">Wi-Fi</div><div class="hstat-label" data-i18n="stat_wifi">Везде бесплатно</div></div>
+      
+      
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <div class="catalog-section">
+    <div class="catalog-head">
+      <div>
+        <h2 data-i18n="catalog_title">Наши дома</h2>
+      </div>
+
+    </div>
+
+    <div class="houses-grid" id="houses-grid"></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2 data-i18n="faq_title">Частые вопросы</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq_q1">Кто у вас проживает?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner" data-i18n="faq_a1">У нас проживают только студенты различных университетов. Мы формируем комфортную и спокойную среду для учёбы и проживания.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq_q2">Что необходимо взять с собой?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner" data-i18n="faq_a2">Необходимо взять личные вещи и постельные принадлежности (бельё, подушку и одеяло). Всё остальное для комфортного проживания уже есть.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq_q3">Что входит в стоимость проживания?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner" data-i18n="faq_a3">В стоимость входит койко-место, пользование всеми общими зонами (кухня, санузел, холл), доступ к интернету и стиральной машине. Коммунальные услуги оплачиваются отдельно.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq_q4">Мальчики и девочки проживают вместе?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner" data-i18n="faq_a4">Да, в одном доме проживают как парни, так и девушки, но размещаются они в отдельных комнатах. На территории действуют правила проживания, за соблюдением которых следит администратор.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span data-i18n="faq_q5">Можно ли забронировать место?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner" data-i18n="faq_a5">Да, вы можете сначала прийти и посмотреть дом, после чего забронировать место, внеся предоплату. Бронирование гарантирует закрепление места за вами.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ═══════════ DETAIL PAGE ═══════════ -->
+<div id="page-detail">
+  <div class="detail-wrap">
+    <button class="detail-back" onclick="showHome()" data-i18n="detail_back">← Вернуться к каталогу</button>
+    <div class="detail-grid">
+      <div>
+        <!-- Gallery -->
+        <div class="gallery">
+          <div class="gallery-main">
+            <div id="gallery-main-thumb" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;">🏠</div>
+          </div>
+          <div class="gallery-thumbs" id="gallery-thumbs"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="detail-info">
+          <h2 id="d-name"></h2>
+          <div class="detail-addr">📍 <span id="d-addr"></span></div>
+          <p class="detail-desc" id="d-desc" style="white-space:pre-line;"></p>
+
+          <h3 data-i18n="amenities_title" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--blue-dark);margin-bottom:1rem;">Удобства</h3>
+          <div class="amenities-grid" id="d-amenities"></div>
+          
+          <div id="d-reviews" class="reviews-section"></div>
+
+          <div id="d-buses" class="bus-widget"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="detail-sidebar">
+        <div class="sidebar-card">
+          <div class="price-block">
+            <div class="price-from" data-i18n="price_from">Стоимость</div>
+            <div class="price-num" id="d-price"></div>
+            <div class="price-period" data-i18n="price_period">в месяц</div>
+          </div>
+        </div>
+      </div><!-- /detail-sidebar -->
+    </div><!-- /detail-grid -->
+  </div><!-- /detail-wrap -->
+</div><!-- /page-detail -->
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+      <div class="social-links" style="justify-content:center;">
+        <a class="social-btn ig" href="https://www.instagram.com/nice_almaty?igsh=MTQ2bHk0emdhcDdlbA==" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          @nice_almaty
+        </a>
+        <a class="social-btn tt" href="https://www.tiktok.com/@nice_almaty?_r=1&_t=ZS-95Lgdzdy1I1" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+          @nice_almaty
+        </a>
+        <a class="social-btn wa" href="https://wa.me/77770739990" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.821 9.821 0 001.687 5.494l-.999 3.648 3.801-.94zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div data-i18n-html="footer_copy">© 2025 <span>Nice Almaty</span> — Дом Студентов. Все права защищены.</div>
+    </div>
+</footer>
+
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // закрыть все открытые
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  // открыть текущий (если он не был открыт)
+  if (!isOpen) item.classList.add('open');
+}
+// ─── i18n ───
+let currentLang = (function(){ try { return localStorage.getItem('lang') || 'ru'; } catch(e){ return 'ru'; } })();
+function L(v){ return (v && typeof v === 'object' && !Array.isArray(v)) ? (v[currentLang] || v.ru) : v; }
+function LA(v){ return Array.isArray(v) ? v : (v ? (v[currentLang] || v.ru) : []); }
+
+const UI = {
+  ru: {
+    nav_cta: "Выбрать дом",
+    hero_badge: "📍 Алматы — 5 студенческих домов",
+    hero_title: "Найди свой<br><span>идеальный дом</span><br>для учёбы",
+    hero_sub: "Комфортное, безопасное и доступное жильё для студентов в самых удобных районах Алматы",
+    stat_houses: "Домов", stat_students: "Студентов", stat_wifi: "Везде бесплатно",
+    catalog_title: "Наши дома",
+    faq_title: "Частые вопросы",
+    faq_q1: "Кто у вас проживает?",
+    faq_a1: "У нас проживают только студенты различных университетов. Мы формируем комфортную и спокойную среду для учёбы и проживания.",
+    faq_q2: "Что необходимо взять с собой?",
+    faq_a2: "Необходимо взять личные вещи и постельные принадлежности (бельё, подушку и одеяло). Всё остальное для комфортного проживания уже есть.",
+    faq_q3: "Что входит в стоимость проживания?",
+    faq_a3: "В стоимость входит койко-место, пользование всеми общими зонами (кухня, санузел, холл), доступ к интернету и стиральной машине. Коммунальные услуги оплачиваются отдельно.",
+    faq_q4: "Мальчики и девочки проживают вместе?",
+    faq_a4: "Да, в одном доме проживают как парни, так и девушки, но размещаются они в отдельных комнатах. На территории действуют правила проживания, за соблюдением которых следит администратор.",
+    faq_q5: "Можно ли забронировать место?",
+    faq_a5: "Да, вы можете сначала прийти и посмотреть дом, после чего забронировать место, внеся предоплату. Бронирование гарантирует закрепление места за вами.",
+    detail_back: "← Вернуться к каталогу",
+    amenities_title: "Удобства",
+    price_from: "Стоимость", price_period: "в месяц",
+    footer_copy: "© 2025 <span>Nice Almaty</span> — Дом Студентов. Все права защищены.",
+    card_details: "Подробнее →",
+    price_prefix: "от ", price_suffix: "/мес",
+    buses_title: "🚌 Автобусы до университетов",
+    buses_loading: "Загрузка маршрутов…",
+    buses_none: "нет прямого автобуса",
+    buses_unavailable: "Маршруты отображаются на опубликованном сайте",
+    buses_direct: "без пересадок",
+    buses_min: "мин"
+  },
+  kz: {
+    nav_cta: "Үй таңдау",
+    hero_badge: "📍 Алматы — 5 студенттік үй",
+    hero_title: "Оқуға арналған<br><span>мінсіз үйіңді</span><br>тап",
+    hero_sub: "Алматының ең ыңғайлы аудандарындағы студенттерге арналған жайлы, қауіпсіз және қолжетімді тұрғын үй",
+    stat_houses: "Үй", stat_students: "Студент", stat_wifi: "Барлық жерде тегін",
+    catalog_title: "Біздің үйлер",
+    faq_title: "Жиі қойылатын сұрақтар",
+    faq_q1: "Сізде кім тұрады?",
+    faq_a1: "Бізде тек әртүрлі университеттердің студенттері тұрады. Біз оқу мен тұру үшін жайлы әрі тыныш орта қалыптастырамыз.",
+    faq_q2: "Өзіммен бірге нені алу керек?",
+    faq_a2: "Жеке заттарыңызды және төсек-орын жабдықтарын (төсек жаймасы, жастық пен көрпе) алу қажет. Жайлы тұру үшін қалғанының бәрі бар.",
+    faq_q3: "Тұру құнына не кіреді?",
+    faq_a3: "Құнға төсек-орын, барлық ортақ аймақтарды (ас үй, дәретхана, холл) пайдалану, интернет пен кір жуғыш машинаға қолжетімділік кіреді. Коммуналдық қызметтер бөлек төленеді.",
+    faq_q4: "Ұлдар мен қыздар бірге тұра ма?",
+    faq_a4: "Иә, бір үйде ұлдар да, қыздар да тұрады, бірақ олар жеке бөлмелерде орналасады. Аумақта тұру ережелері қолданылады, оның сақталуын әкімші қадағалайды.",
+    faq_q5: "Орынды броньдауға бола ма?",
+    faq_a5: "Иә, алдымен келіп үйді көріп, содан кейін алдын ала төлем жасап, орынды броньдай аласыз. Бронь орынды сізге бекітуге кепілдік береді.",
+    detail_back: "← Каталогқа оралу",
+    amenities_title: "Ыңғайлылықтар",
+    price_from: "Құны", price_period: "айына",
+    footer_copy: "© 2025 <span>Nice Almaty</span> — Студенттер үйі. Барлық құқықтар қорғалған.",
+    card_details: "Толығырақ →",
+    price_prefix: "", price_suffix: " / айына",
+    buses_title: "🚌 Университеттерге автобустар",
+    buses_loading: "Маршруттар жүктелуде…",
+    buses_none: "тікелей автобус жоқ",
+    buses_unavailable: "Маршруттар жарияланған сайтта көрсетіледі",
+    buses_direct: "ауыстырусыз",
+    buses_min: "мин"
+  },
+  en: {
+    nav_cta: "Choose a house",
+    hero_badge: "📍 Almaty — 5 student houses",
+    hero_title: "Find your<br><span>perfect home</span><br>for studying",
+    hero_sub: "Comfortable, safe and affordable housing for students in the most convenient districts of Almaty",
+    stat_houses: "Houses", stat_students: "Students", stat_wifi: "Free everywhere",
+    catalog_title: "Our houses",
+    faq_title: "Frequently asked questions",
+    faq_q1: "Who lives with you?",
+    faq_a1: "Only students from various universities live with us. We create a comfortable and calm environment for studying and living.",
+    faq_q2: "What do I need to bring?",
+    faq_a2: "You need to bring personal belongings and bedding (sheets, a pillow and a blanket). Everything else for comfortable living is already provided.",
+    faq_q3: "What is included in the price?",
+    faq_a3: "The price includes a bed, use of all common areas (kitchen, bathroom, lounge), internet access and the washing machine. Utilities are paid separately.",
+    faq_q4: "Do boys and girls live together?",
+    faq_a4: "Yes, both guys and girls live in the same house, but they are placed in separate rooms. House rules apply on the premises, and an administrator makes sure they are followed.",
+    faq_q5: "Can I reserve a spot?",
+    faq_a5: "Yes, you can first come and view the house, then reserve a spot by making a prepayment. The reservation guarantees the spot is held for you.",
+    detail_back: "← Back to catalog",
+    amenities_title: "Amenities",
+    price_from: "Price", price_period: "per month",
+    footer_copy: "© 2025 <span>Nice Almaty</span> — Student House. All rights reserved.",
+    card_details: "Details →",
+    price_prefix: "from ", price_suffix: "/mo",
+    buses_title: "🚌 Buses to universities",
+    buses_loading: "Loading routes…",
+    buses_none: "no direct bus",
+    buses_unavailable: "Routes are shown on the published site",
+    buses_direct: "no transfers",
+    buses_min: "min"
+  }
+};
+
+function t(key){ return (UI[currentLang] && UI[currentLang][key]) || UI.ru[key] || ''; }
+
+// Shared amenities (identical for every house)
+const AMEN = {
+  ru: ["📹 Камеры наблюдения","🧴 Химия для дома включена","🌐 Wi-Fi бесплатно","👮 Администраторы следят за порядком","👕 Стиральная машина включена","🍳 Кухня полностью укомплектована","🔥 Пожарная сигнализация","💡 Кварц-лампа","🧯 Огнетушители"],
+  kz: ["📹 Бақылау камералары","🧴 Үй химиясы кіреді","🌐 Тегін Wi-Fi","👮 Әкімшілер тәртіпті қадағалайды","👕 Кір жуғыш машина кіреді","🍳 Ас үй толық жабдықталған","🔥 Өрт дабылы","💡 Кварц шамы","🧯 Өрт сөндіргіштер"],
+  en: ["📹 Security cameras","🧴 Household chemicals included","🌐 Free Wi-Fi","👮 Administrators keep order","👕 Washing machine included","🍳 Fully equipped kitchen","🔥 Fire alarm","💡 Quartz lamp","🧯 Fire extinguishers"]
+};
+
+const house1Photos = ['IMG_7115.JPG', 'IMG_7116.JPG', 'IMG_7117.JPG', 'IMG_7118.JPG', 'IMG_7119.JPG', 'IMG_7120.JPG', 'IMG_7122.JPG'];
+const house2Photos = ['IMG_7143.JPG', 'IMG_7144.JPG', 'IMG_7145.JPG', 'IMG_7146.JPG', 'IMG_7147.JPG', 'IMG_7148.JPG', 'IMG_7149.JPG', 'IMG_7150.JPG'];
+const house3Photos = ['IMG_7135.JPG', 'IMG_7136.JPG', 'IMG_7137.JPG', 'IMG_7138.JPG', 'IMG_7139.JPG', 'IMG_7140.JPG', 'IMG_7141.JPG'];
+const house4Photos = ['IMG_7125.JPG', 'IMG_7126.JPG', 'IMG_7127.JPG', 'IMG_7128.JPG', 'IMG_7129.JPG', 'IMG_7130.JPG', 'IMG_7131.JPG'];
+const house5Photos = ['IMG_7106.JPG', 'IMG_7108.JPG', 'IMG_7112.JPG', 'IMG_7113.JPG', 'IMG_7114.JPG'];
+const houses = [
+  {
+    id: 1,
+    name: { ru: "Nice Almaty — Дом №1", kz: "Nice Almaty — №1 үй", en: "Nice Almaty — House №1" },
+    shortName: "Дом №1",
+    district: { ru: "Горный Гигант", kz: "Горный Гигант", en: "Gorny Gigant" },
+    address: { ru: "Район Горный Гигант, Алматы", kz: "Горный Гигант ауданы, Алматы", en: "Gorny Gigant district, Almaty" },
+    mapLink: "https://maps.google.com/?q=Толе+би+45+Алматы",
+    price: "65 000 – 70 000 ₸",
+    badge: { ru: "Популярный", kz: "Танымал", en: "Popular" },
+    thumbBg: "thumb-bg1",
+    thumbIcon: "🏡",
+    thumbPhoto: "IMG_7121.JPG",
+    photos: house1Photos,
+    availText: { ru: "✅ 8 свободных мест", kz: "✅ 8 бос орын", en: "✅ 8 spots available" },
+    features: [],
+    amenities: AMEN,
+    desc: {
+      ru: `Дом расположен в районе Горный Гигант — одной из престижных и более экологичных частей Алматы. Верхняя часть города отличается свежим воздухом и спокойной атмосферой, что особенно важно для комфортной жизни и учёбы.
+
+Дом №1 находится в тихой части частного сектора — без лишнего шума и плотного трафика. Это формат для тех, кто ценит спокойствие и порядок без ощущения переполненного общежития. При этом вся необходимая инфраструктура рядом: круглосуточные магазины и удобная транспортная доступность.
+
+Дом рассчитан всего на 10 студентов — сохраняется уютная атмосфера без большого количества соседей.
+
+В доме:
+• 1 двухместная комната
+• 2 четырёхместные комнаты
+• Просторный холл для отдыха и общения
+• Кухня, полностью оборудованная техникой и утварью
+• Санузел и душевая внутри дома
+• Дополнительный уличный санузел
+
+Во дворе расположены тапчан и баня на дровах — редкий формат для студенческого жилья, который даёт возможность расслабиться без выезда за город.`,
+      kz: `Үй Горный Гигант ауданында орналасқан — Алматының беделді әрі экологиялық таза бөліктерінің бірі. Қаланың жоғарғы бөлігі таза ауасымен және тыныш атмосферасымен ерекшеленеді, бұл ыңғайлы өмір сүру мен оқу үшін аса маңызды.
+
+№1 үй жеке сектордың тыныш бөлігінде орналасқан — артық шу мен қарбалас көліктер жоқ. Бұл толып кеткен жатақхана сезімінсіз тыныштық пен тәртіпті бағалайтындарға арналған формат. Сонымен қатар барлық қажетті инфрақұрылым жақын: тәулік бойы жұмыс істейтін дүкендер және ыңғайлы көлік қатынасы.
+
+Үй небәрі 10 студентке есептелген — көп көршісіз жайлы атмосфера сақталады.
+
+Үйде:
+• 1 екі орындық бөлме
+• 2 төрт орындық бөлме
+• Демалу мен әңгімелесуге арналған кең холл
+• Техника мен ыдыс-аяқпен толық жабдықталған ас үй
+• Үй ішіндегі дәретхана мен душ
+• Қосымша көшедегі дәретхана
+
+Аулада тапшан мен отынмен жағылатын монша бар — студенттік тұрғын үй үшін сирек кездесетін формат, ол қаладан шықпай-ақ демалуға мүмкіндік береді.`,
+      en: `The house is located in the Gorny Gigant district — one of the most prestigious and eco-friendly parts of Almaty. The upper part of the city stands out for its fresh air and calm atmosphere, which is especially important for comfortable living and studying.
+
+House №1 sits in a quiet part of the private sector — without excess noise or heavy traffic. It's a format for those who value calm and order without the feeling of an overcrowded dormitory. At the same time, all the necessary infrastructure is nearby: 24-hour stores and convenient transport access.
+
+The house is designed for just 10 students — keeping a cozy atmosphere without too many neighbors.
+
+The house has:
+• 1 two-person room
+• 2 four-person rooms
+• A spacious lounge for rest and socializing
+• A kitchen fully equipped with appliances and utensils
+• A bathroom and shower inside the house
+• An additional outdoor bathroom
+
+In the yard there is a tapchan and a wood-fired sauna — a rare format for student housing that lets you relax without leaving the city.`
+    },
+    admin: { name: "Айгерим С.", initials: "АС", phone: "+7 701 234 56 78", whatsapp: "+77012345678", email: "dom1@nicealmaty.kz" }
+  },
+  {
+    id: 2,
+    name: { ru: "Nice Almaty — Дом №2", kz: "Nice Almaty — №2 үй", en: "Nice Almaty — House №2" },
+    shortName: "Дом №2",
+    district: { ru: "Рядом с Парком Горького", kz: "Горький саябағына жақын", en: "Near Gorky Park" },
+    address: { ru: "Центр Алматы, рядом с Парком Горького", kz: "Алматы орталығы, Горький саябағына жақын", en: "Almaty center, near Gorky Park" },
+    mapLink: "https://maps.google.com/?q=Достык+112+Алматы",
+    price: "55 000 – 60 000 ₸",
+    badge: { ru: "Новый", kz: "Жаңа", en: "New" },
+    thumbBg: "thumb-bg2",
+    thumbIcon: "🏘️",
+    thumbPhoto: "IMG_7142.JPG",
+    photos: house2Photos,
+    availText: { ru: "✅ 5 свободных мест", kz: "✅ 5 бос орын", en: "✅ 5 spots available" },
+    features: [],
+    amenities: AMEN,
+    desc: {
+      ru: `Дом расположен в одной из самых удобных и зелёных частей города — рядом с Парком Горького, в центральной части Алматы. Район остаётся спокойным и комфортным, при этом вся городская инфраструктура находится в шаговой доступности.
+
+Рядом развитая транспортная развязка, Magnum на Гоголя и всё необходимое для повседневной жизни студента.
+
+Особенность дома — собственный сад на территории: черешня, яблоки, грецкий орех, виноград и слива. В сезон студенты собирают натуральные фрукты прямо во дворе.
+
+В доме:
+• 2 четырёхместные комнаты
+• 1 пятиместная комната
+• 2 шестиместные комнаты
+• 2 просторных холла для отдыха и учёбы
+• Бильярд и кладовая для хранения вещей
+• Кухня полностью оборудована техникой и посудой
+• Стиральная машина входит в стоимость
+
+На территории — крытый просторный двор с топчаном и диванами, комфортный в любое время года.`,
+      kz: `Үй қаланың ең ыңғайлы әрі жасыл бөліктерінің бірінде — Алматының орталық бөлігіндегі Горький саябағына жақын орналасқан. Аудан тыныш әрі жайлы күйінде қалады, әрі қаланың барлық инфрақұрылымы жаяу жетуге болатын қашықтықта.
+
+Жақын жерде дамыған көлік айрығы, Гоголь көшесіндегі Magnum және студенттің күнделікті өміріне қажеттінің бәрі бар.
+
+Үйдің ерекшелігі — аумағындағы өзіндік бақ: шие, алма, грек жаңғағы, жүзім және алхоры. Маусым кезінде студенттер табиғи жемістерді аула ішінде жинайды.
+
+Үйде:
+• 2 төрт орындық бөлме
+• 1 бес орындық бөлме
+• 2 алты орындық бөлме
+• Демалу мен оқуға арналған 2 кең холл
+• Бильярд және заттарды сақтауға арналған қойма
+• Ас үй техника мен ыдыспен толық жабдықталған
+• Кір жуғыш машина құнға кіреді
+
+Аумақта — тапшан мен дивандары бар жабық кең аула, жылдың кез келген мезгілінде жайлы.`,
+      en: `The house is located in one of the most convenient and green parts of the city — near Gorky Park, in the central part of Almaty. The area remains calm and comfortable, while all the city's infrastructure is within walking distance.
+
+Nearby there is a developed transport hub, the Magnum on Gogol street and everything needed for a student's daily life.
+
+A special feature of the house is its own garden on the grounds: sweet cherry, apples, walnut, grapes and plum. In season, students pick natural fruit right in the yard.
+
+The house has:
+• 2 four-person rooms
+• 1 five-person room
+• 2 six-person rooms
+• 2 spacious lounges for rest and study
+• A billiard table and a storage room for belongings
+• A kitchen fully equipped with appliances and dishes
+• The washing machine is included in the price
+
+On the grounds there is a covered spacious courtyard with a tapchan and sofas, comfortable at any time of year.`
+    },
+    admin: { name: "Бауыржан К.", initials: "БК", phone: "+7 702 345 67 89", whatsapp: "+77023456789", email: "dom2@nicealmaty.kz" }
+  },
+  {
+    id: 3,
+    name: { ru: "Nice Almaty — Дом №3", kz: "Nice Almaty — №3 үй", en: "Nice Almaty — House №3" },
+    shortName: "Дом №3",
+    district: { ru: "Медеуский район", kz: "Медеу ауданы", en: "Medeu district" },
+    address: { ru: "Район Горный Гигант, Алматы", kz: "Горный Гигант ауданы, Алматы", en: "Gorny Gigant district, Almaty" },
+    mapLink: "https://maps.google.com/?q=Горный+Гигант+Алматы",
+    price: "55 000 – 70 000 ₸",
+    badge: { ru: "Премиум", kz: "Премиум", en: "Premium" },
+    thumbBg: "thumb-bg3",
+    thumbIcon: "🏔️",
+    thumbPhoto: "IMG_7134.JPG",
+    photos: house3Photos,
+    availText: { ru: "✅ Есть свободные места", kz: "✅ Бос орындар бар", en: "✅ Spots available" },
+    features: [],
+    amenities: AMEN,
+    desc: {
+      ru: `Дом расположен в районе Горный Гигант — одной из престижных и экологически чистых частей Алматы. Верхняя часть города отличается свежим воздухом, спокойной атмосферой и комфортной средой для жизни и учёбы.
+
+Рядом находятся Magnum, Ritz Palace, круглосуточные магазины и фастфуд. Конечная остановка транспорта рядом — можно ехать сидя без толпы.
+
+В доме 8 комнат разной вместимости:
+• 3 двухместные комнаты (общий санузел)
+• 3 трёхместные комнаты (санузел в комнате)
+• 1 четырёхместная комната (санузел в комнате)
+• 1 шестиместная комната (санузел в комнате)
+
+Дом ориентирован на студентов: спокойная рабочая атмосфера, зоны для учёбы, полностью оборудованная кухня. Стиральная машина включена в стоимость — без доплат.`,
+      kz: `Үй Горный Гигант ауданында орналасқан — Алматының беделді әрі экологиялық таза бөліктерінің бірі. Қаланың жоғарғы бөлігі таза ауасымен, тыныш атмосферасымен және өмір сүру мен оқуға жайлы ортасымен ерекшеленеді.
+
+Жақын жерде Magnum, Ritz Palace, тәулік бойы жұмыс істейтін дүкендер және фастфуд бар. Көліктің соңғы аялдамасы жақын — көпшіліксіз отырып баруға болады.
+
+Үйде әртүрлі сыйымдылықтағы 8 бөлме бар:
+• 3 екі орындық бөлме (ортақ дәретхана)
+• 3 үш орындық бөлме (бөлме ішінде дәретхана)
+• 1 төрт орындық бөлме (бөлме ішінде дәретхана)
+• 1 алты орындық бөлме (бөлме ішінде дәретхана)
+
+Үй студенттерге бағытталған: тыныш жұмыс атмосферасы, оқуға арналған аймақтар, толық жабдықталған ас үй. Кір жуғыш машина құнға кіреді — қосымша төлемсіз.`,
+      en: `The house is located in the Gorny Gigant district — one of the prestigious and ecologically clean parts of Almaty. The upper part of the city stands out for its fresh air, calm atmosphere and comfortable environment for living and studying.
+
+Nearby are Magnum, Ritz Palace, 24-hour stores and fast food. The final transport stop is close — you can ride seated without the crowds.
+
+The house has 8 rooms of various capacity:
+• 3 two-person rooms (shared bathroom)
+• 3 three-person rooms (bathroom in the room)
+• 1 four-person room (bathroom in the room)
+• 1 six-person room (bathroom in the room)
+
+The house is oriented toward students: a calm working atmosphere, study areas, a fully equipped kitchen. The washing machine is included in the price — no extra charges.`
+    },
+    admin: { name: "Дана М.", initials: "ДМ", phone: "+7 703 456 78 90", whatsapp: "+77034567890", email: "dom3@nicealmaty.kz" }
+  },
+  {
+    id: 4,
+    name: { ru: "Nice Almaty — Дом №4", kz: "Nice Almaty — №4 үй", en: "Nice Almaty — House №4" },
+    shortName: "Дом №4",
+    district: { ru: "Нур-Алатау, Бостандыкский р-н", kz: "Нұр-Алатау, Бостандық ауданы", en: "Nur-Alatau, Bostandyk district" },
+    address: { ru: "Район Нур-Алатау, Алматы", kz: "Нұр-Алатау ауданы, Алматы", en: "Nur-Alatau district, Almaty" },
+    mapLink: "https://maps.google.com/?q=Аксай+23+Алматы",
+    price: "45 000 – 65 000 ₸",
+    badge: { ru: "Бюджетный", kz: "Бюджетті", en: "Budget" },
+    thumbBg: "thumb-bg4",
+    thumbIcon: "🏠",
+    thumbPhoto: "IMG_7123.JPG",
+    photos: house4Photos,
+    availText: { ru: "✅ 12 свободных мест", kz: "✅ 12 бос орын", en: "✅ 12 spots available" },
+    features: [],
+    amenities: AMEN,
+    desc: {
+      ru: `Дом расположен в районе Нур-Алатау, в верхней части Бостандыкского района. Это спокойная часть города без плотной застройки и постоянного шума. Локация особенно удобна для студентов КазГАСА, МУИТ (IITU), КазНУ и других университетов верхней части города.
+
+Главное отличие — ощущение пространства. Нет тесных дворов и близко стоящих высоток. Это единственный дом из сети, где вечером видно открытое небо и звёзды без городской засветки.
+
+Дом часто называют самым эстетичным — интерьер аккуратный, современный, без ощущения перегруженности.
+
+В доме 4 комнаты:
+• 1 четырёхместная комната
+• 2 шестиместные комнаты
+• 1 мансардная восьмиместная комната (более доступный вариант)
+• Очень просторный холл — зона учёбы, отдыха и кино-вечеров
+• Большая кухня, полностью оборудованная техникой и посудой
+• Стиральная машина входит в стоимость проживания`,
+      kz: `Үй Нұр-Алатау ауданында, Бостандық ауданының жоғарғы бөлігінде орналасқан. Бұл тығыз құрылыссыз және үнемі шусыз қаланың тыныш бөлігі. Орналасуы әсіресе ҚазБСҚА, ХАТУ (IITU), ҚазҰУ және қаланың жоғарғы бөлігіндегі басқа университеттердің студенттеріне ыңғайлы.
+
+Басты ерекшелігі — кеңістік сезімі. Тар аулалар мен қатар тұрған көп қабатты үйлер жоқ. Бұл — желідегі кешке қала жарығынсыз ашық аспан мен жұлдыздар көрінетін жалғыз үй.
+
+Үйді көбіне ең әсем деп атайды — интерьер ұқыпты, заманауи, артық жүктелген сезімсіз.
+
+Үйде 4 бөлме:
+• 1 төрт орындық бөлме
+• 2 алты орындық бөлме
+• 1 мансардалы сегіз орындық бөлме (қолжетімдірек нұсқа)
+• Өте кең холл — оқу, демалу және кино кештеріне арналған аймақ
+• Техника мен ыдыспен толық жабдықталған үлкен ас үй
+• Кір жуғыш машина тұру құнына кіреді`,
+      en: `The house is located in the Nur-Alatau area, in the upper part of the Bostandyk district. This is a quiet part of the city without dense development and constant noise. The location is especially convenient for students of KazGASA, IITU, KazNU and other universities in the upper part of the city.
+
+The main difference is the sense of space. There are no cramped yards or closely standing high-rises. This is the only house in the network where in the evening you can see the open sky and stars without city light pollution.
+
+The house is often called the most aesthetic — the interior is neat, modern, without a feeling of clutter.
+
+The house has 4 rooms:
+• 1 four-person room
+• 2 six-person rooms
+• 1 attic eight-person room (a more affordable option)
+• A very spacious lounge — an area for study, rest and movie nights
+• A large kitchen, fully equipped with appliances and dishes
+• The washing machine is included in the cost of living`
+    },
+    admin: { name: "Серик Т.", initials: "СТ", phone: "+7 704 567 89 01", whatsapp: "+77045678901", email: "dom4@nicealmaty.kz" }
+  },
+  {
+    id: 5,
+    name: { ru: "Nice Almaty — Дом №5", kz: "Nice Almaty — №5 үй", en: "Nice Almaty — House №5" },
+    shortName: "Дом №5",
+    district: { ru: "Рядом Dostyk Plaza и Кок-Тобе", kz: "Dostyk Plaza мен Көк-Төбеге жақын", en: "Near Dostyk Plaza & Kok-Tobe" },
+    address: { ru: "Верхняя часть Алматы, рядом Dostyk Plaza", kz: "Алматының жоғарғы бөлігі, Dostyk Plaza-ға жақын", en: "Upper Almaty, near Dostyk Plaza" },
+    mapLink: "https://maps.google.com/?q=Саина+15А+Алматы",
+    price: "65 000 – 70 000 ₸",
+    badge: { ru: "Для девушек", kz: "Қыздарға арналған", en: "For girls" },
+    thumbBg: "thumb-bg5",
+    thumbIcon: "🌸",
+    thumbPhoto: "IMG_7109.JPG",
+    photos: house5Photos,
+    availText: { ru: "✅ 6 свободных мест", kz: "✅ 6 бос орын", en: "✅ 6 spots available" },
+    features: [],
+    amenities: AMEN,
+    desc: {
+      ru: `Дом расположен в верхней части Алматы, рядом с Dostyk Plaza, прогулочной зоной Теренкур и недалеко от Кок-Тобе. Одна из самых удобных и престижных частей города — развитая инфраструктура сочетается со спокойной атмосферой частного сектора.
+
+До Dostyk Plaza пешком — рядом супермаркеты, аптеки, кофейни. Теренкур в пешей доступности — популярное место для прогулок и пробежек. А до Кок-Тобе, куда многие едут специально из других районов, студенты могут просто дойти пешком.
+
+Дом небольшой — всего 4 комнаты, поэтому атмосфера остаётся спокойной и комфортной.
+
+В доме:
+• 2 четырёхместные комнаты
+• 2 шестиместные комнаты
+• Просторный холл — зона отдыха и учёбы
+• Кухня полностью оборудована техникой и посудой
+• Стиральная машина входит в стоимость
+
+Во дворе аккуратная зелёная зона с газоном, смородиной, виноградом и цветами.`,
+      kz: `Үй Алматының жоғарғы бөлігінде, Dostyk Plaza-ға, Теренкур серуендеу аймағына жақын және Көк-Төбеден алыс емес жерде орналасқан. Қаланың ең ыңғайлы әрі беделді бөліктерінің бірі — дамыған инфрақұрылым жеке сектордың тыныш атмосферасымен үйлеседі.
+
+Dostyk Plaza-ға жаяу жетуге болады — жақын жерде супермаркеттер, дәріханалар, кофеханалар бар. Теренкур жаяу жетерлік қашықтықта — серуендеу мен жүгіруге арналған танымал орын. Ал көпшілік басқа аудандардан арнайы баратын Көк-Төбеге студенттер жай ғана жаяу жете алады.
+
+Үй шағын — небәрі 4 бөлме, сондықтан атмосфера тыныш әрі жайлы күйінде қалады.
+
+Үйде:
+• 2 төрт орындық бөлме
+• 2 алты орындық бөлме
+• Кең холл — демалу мен оқу аймағы
+• Ас үй техника мен ыдыспен толық жабдықталған
+• Кір жуғыш машина құнға кіреді
+
+Аулада газоны, қарақаты, жүзімі және гүлдері бар ұқыпты жасыл аймақ бар.`,
+      en: `The house is located in the upper part of Almaty, near Dostyk Plaza, the Terrenkur walking area and not far from Kok-Tobe. One of the most convenient and prestigious parts of the city — developed infrastructure combined with the calm atmosphere of the private sector.
+
+Dostyk Plaza is within walking distance — supermarkets, pharmacies and coffee shops are nearby. Terrenkur is within walking distance — a popular place for walks and runs. And students can simply walk to Kok-Tobe, where many people travel specially from other districts.
+
+The house is small — only 4 rooms, so the atmosphere stays calm and comfortable.
+
+The house has:
+• 2 four-person rooms
+• 2 six-person rooms
+• A spacious lounge — a rest and study area
+• A kitchen fully equipped with appliances and dishes
+• The washing machine is included in the price
+
+In the yard there is a neat green area with a lawn, currants, grapes and flowers.`
+    },
+    admin: { name: "Жанна О.", initials: "ЖО", phone: "+7 705 678 90 12", whatsapp: "+77056789012", email: "dom5@nicealmaty.kz" }
+  }
+];
+
+// Render cards
+function renderCards() {
+  const grid = document.getElementById('houses-grid');
+  grid.innerHTML = houses.map(function(h) {
+    var thumbHtml = h.thumbPhoto
+      ? '<img src="' + h.thumbPhoto + '" style="width:100%;height:100%;object-fit:cover;" />'
+      : '<div class="thumb-icon">' + h.thumbIcon + '</div>';
+    var thumbStyle = h.thumbPhoto ? 'style="background:none;padding:0;"' : '';
+    var featuresHtml = h.features.map(function(f) {
+      return '<span class="feat-tag">' + f + '</span>';
+    }).join('');
+    return '<div class="house-card" onclick="showDetail(' + h.id + ')">'
+      + '<div class="house-thumb ' + h.thumbBg + '" ' + thumbStyle + '>'
+      + thumbHtml
+      + '<div class="thumb-price">' + t('price_prefix') + h.price + t('price_suffix') + '</div>'
+      + '</div>'
+      + '<div class="house-body">'
+      + '<div class="house-name">' + L(h.name) + '</div>'
+      + '<div class="house-addr">📍 ' + L(h.district) + '</div>'
+      + '<div class="house-features">' + featuresHtml + '</div>'
+      + '<div class="house-footer">'
+      + '<button class="card-cta">' + t('card_details') + '</button>'
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+let currentHouseId = null;
+function showDetail(id) {
+  const h = houses.find(x => x.id === id);
+  if (!h) return;
+  currentHouseId = id;
+
+  document.getElementById('d-name').textContent = L(h.name);
+  document.getElementById('d-addr').textContent = L(h.address);
+  document.getElementById('d-desc').textContent = L(h.desc);
+  document.getElementById('d-price').textContent = h.price;
+  
+
+  // gallery
+  const main = document.getElementById('gallery-main-thumb');
+  if (h.photos && h.photos.length > 0) {
+    main.className = '';
+    main.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+    main.innerHTML = `<img src="${h.photos[0]}" style="width:100%;height:100%;object-fit:cover;" />`;
+    const thumbsEl = document.getElementById('gallery-thumbs');
+    if (h.photos.length > 1) {
+      thumbsEl.innerHTML = h.photos.slice(0,6).map((src,i) => `
+        <div class="gallery-thumb ${i===0?'active':''}" onclick="selectPhoto(this,'${src}')">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      `).join('');
+    } else {
+      thumbsEl.innerHTML = '';
+    }
+  } else {
+    main.className = h.thumbBg;
+    main.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;';
+    main.textContent = h.thumbIcon;
+    const thumbColors = ['thumb-bg1','thumb-bg2','thumb-bg3'];
+    const thumbIcons = [h.thumbIcon,'🛏️','🍳'];
+    document.getElementById('gallery-thumbs').innerHTML = thumbColors.map((c,i) => `
+      <div class="gallery-thumb ${i===0?'active':''}" onclick="selectThumb(this,'${thumbIcons[i]}','${c}')">
+        <div class="${c}" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;">${thumbIcons[i]}</div>
+      </div>
+    `).join('');
+  }
+
+  // amenities
+  document.getElementById('d-amenities').innerHTML = LA(h.amenities).map(a => `<div class="amenity">${a}</div>`).join('');
+
+  // reviews
+  if (h.reviews && h.reviews.length > 0) {
+    document.getElementById('d-reviews').innerHTML = `
+      <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--blue-dark);margin-bottom:1rem;">Отзывы проживающих</h3>
+      ` + h.reviews.map(r => `
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-author">${r.author}</div>
+          <div class="review-stars">${r.stars}</div>
+        </div>
+        <div class="review-text">${r.text}</div>
+      </div>
+    `).join('');
+  } else {
+    document.getElementById('d-reviews').innerHTML = '';
+  }
+
+  // buses to universities widget
+  loadBuses(h.id);
+
+  document.getElementById('page-home').style.display = 'none';
+  document.getElementById('page-detail').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Bus routes widget ───
+// Маршруты автобусов (дом -> университеты) заданы вручную и встроены в страницу,
+// поэтому сайту не нужен API-ключ или серверная функция. Каждая запись:
+// { name: 'УНИВЕРСИТЕТ', buses: ['70','124'], durationMin: 30 [, transfer: true] }.
+// transfer:true означает пересадку (автобусы показываются через стрелку 15 -> 128).
+var BUS_DATA = {
+  "1": [
+    { name: "ТУРАН",      buses: ["70","124"],      durationMin: 30 },
+    { name: "UIB",        buses: ["2"],             durationMin: 28 },
+    { name: "КАСПИЙСКИЙ", buses: ["87"],            durationMin: 41 },
+    { name: "САТПАЕВ",    buses: ["87"],            durationMin: 37 },
+    { name: "МУИТ",       buses: ["70","124","87"], durationMin: 20 },
+    { name: "КАЗГУ",      buses: ["70","121"],      durationMin: 20 },
+    { name: "КБТУ",       buses: ["2"],             durationMin: 35 }
+  ],
+  "2": [
+    { name: "КБТУ",         buses: ["118"],                   durationMin: 28 },
+    { name: "КАЗНПУ",       buses: ["118"],                   durationMin: 25 },
+    { name: "АСФЕНДИЯРОВА",  buses: ["210","206","209","224"], durationMin: 30 },
+    { name: "ЖЕНПУ",        buses: ["22"],                    durationMin: 25 },
+    { name: "КРМУ",         buses: ["206","209","225"],       durationMin: 35 }
+  ],
+  "3": [
+    { name: "ТУРАН",      buses: ["70","124"],      durationMin: 25 },
+    { name: "UIB",        buses: ["2"],             durationMin: 23 },
+    { name: "КАСПИЙСКИЙ", buses: ["87"],            durationMin: 41 },
+    { name: "САТПАЕВ",    buses: ["87"],            durationMin: 33 },
+    { name: "МУИТ",       buses: ["70","124","87"], durationMin: 15 },
+    { name: "КАЗГУ",      buses: ["70","121"],      durationMin: 15 },
+    { name: "КБТУ",       buses: ["2"],             durationMin: 30 }
+  ],
+  "4": [
+    { name: "КАЗГАСА", buses: ["15"],       durationMin: 40 },
+    { name: "ALMAU",   buses: ["30"],       durationMin: 42 },
+    { name: "METU",    buses: ["15","128"], durationMin: 40, transfer: true }
+  ],
+  "5": [
+    { name: "UIB",        buses: ["99","12"],            durationMin: 20 },
+    { name: "КАСПИЙСКИЙ", buses: ["99"],                 durationMin: 25 },
+    { name: "КБТУ",       buses: ["12"],                 durationMin: 25 },
+    { name: "КАЗНПУ",     buses: ["107"],                durationMin: 25 },
+    { name: "КАНЗАИУ",    buses: ["107","5","29","141"], durationMin: 19 }
+  ]
+};
+function loadBuses(houseId) {
+  var box = document.getElementById('d-buses');
+  if (!box) return;
+  var data = BUS_DATA[houseId];
+  if (data) { renderBuses(houseId, data); return; }
+  box.innerHTML = '<h3>' + t('buses_title') + '</h3><div class="bus-note">'
+    + t('buses_unavailable') + '</div>';
+}
+
+function renderBuses(houseId, data) {
+  var box = document.getElementById('d-buses');
+  if (!box) return;
+  var unis = data || [];
+  var rows = unis.map(function(u){
+    var buses = u.buses || [];
+    var sep = u.transfer ? '<span class="bus-arrow">→</span>' : '';
+    var chips = buses.map(function(b){
+      return '<span class="bus-chip">' + escapeBus(b) + '</span>';
+    }).join(sep);
+    var time = u.durationMin
+      ? '<span class="bus-badge time">~' + u.durationMin + ' ' + t('buses_min') + '</span>'
+      : '';
+    return '<div class="bus-row">'
+      + '<div class="bus-uni">' + escapeBus(u.name) + '</div>'
+      + '<div class="bus-opts"><div class="bus-opt">' + chips + time + '</div></div>'
+      + '</div>';
+  }).join('');
+  box.innerHTML = '<h3>' + t('buses_title') + '</h3><div class="bus-rows">' + rows + '</div>';
+}
+
+function escapeBus(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function selectPhoto(el, src) {
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const main = document.getElementById('gallery-main-thumb');
+  main.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;" />`;
+}
+
+function selectThumb(el, icon, bg) {
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const main = document.getElementById('gallery-main-thumb');
+  main.className = bg;
+  main.style.cssText = `width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;`;
+  main.textContent = icon;
+}
+
+function showHome() {
+  currentHouseId = null;
+  document.getElementById('page-home').style.display = 'block';
+  document.getElementById('page-detail').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Language switching ───
+function applyStaticI18n() {
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (UI[currentLang] && UI[currentLang][k] !== undefined) el.textContent = UI[currentLang][k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-html');
+    if (UI[currentLang] && UI[currentLang][k] !== undefined) el.innerHTML = UI[currentLang][k];
+  });
+}
+
+function setLang(lang) {
+  if (!UI[lang]) return;
+  currentLang = lang;
+  try { localStorage.setItem('lang', lang); } catch(e) {}
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+  applyStaticI18n();
+  renderCards();
+  if (currentHouseId && document.getElementById('page-detail').style.display === 'block') {
+    showDetail(currentHouseId);
+  }
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+
+setTimeout(function(){ setLang(currentLang); }, 0);
+</script>
+</body>
+</html>

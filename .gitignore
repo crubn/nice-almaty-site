@@ -1,0 +1,11 @@
+# Local tooling / secrets — NEVER commit
+.vercel
+.gstack/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+node_modules/
