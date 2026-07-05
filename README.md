@@ -66,15 +66,15 @@
 Встроенный чат-бот (кнопка 💬 внизу справа) отвечает на вопросы студентов о **свободных местах**, ценах, маршрутах до вузов и удобствах — на русском, казахском и английском.
 
 - **Модель:** DeepSeek V4 Flash через serverless-функцию [`api/chat.js`](api/chat.js) на Vercel.
-- **Данные о местах:** берутся из таблицы заселения `Общежитие Список.xlsx`. Скрипт [`scripts/sync_availability.py`](scripts/sync_availability.py) превращает её в [`data/availability.json`](data/availability.json), **полностью убирая ФИО жильцов** (колонка с именами не читается и не выгружается).
-- **Приватность:** имена жильцов никогда не покидают таблицу — их нет ни в JSON, ни в запросах к модели. Сам файл `.xlsx` исключён из git и деплоя.
+- **Данные:** берутся из таблицы `Чат бот.xlsx` (листы «Дома», «свободные места», «университеты», «База знаний»). Скрипт [`scripts/sync_availability.py`](scripts/sync_availability.py) превращает её в [`data/site-facts.json`](data/site-facts.json) (дома, цены, районы, вузы, FAQ) и [`data/availability.json`](data/availability.json) (свободные места по комнатам).
+- **Приватность:** персональные данные (ФИО жильцов, имена ответственных сотрудников) не читаются и не выгружаются — их нет ни в JSON, ни в запросах к модели. Сам файл `.xlsx` исключён из git и деплоя.
 
 ### Обновить данные о местах
 
 После правки таблицы перегенерируйте JSON:
 
 ```bash
-python3 scripts/sync_availability.py   # → data/availability.json (без ФИО)
+python3 scripts/sync_availability.py   # → data/site-facts.json + data/availability.json (без персональных данных)
 ```
 
 ### Переменные окружения (Vercel)

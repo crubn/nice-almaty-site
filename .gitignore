@@ -2,8 +2,9 @@
 .vercel
 .gstack/
 
-# Occupancy table holds residents' names (ФИО) — keep it local only.
-# Regenerate data/availability.json from it with scripts/sync_availability.py.
+# Source table (may contain staff names) — keep it local only.
+# Regenerate data/*.json from it with scripts/sync_availability.py.
+Чат бот.xlsx
 Общежитие Список.xlsx
 
 # OS / editor cruft

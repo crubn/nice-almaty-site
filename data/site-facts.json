@@ -1,95 +1,193 @@
 {
-  "_comment": "Curated concierge knowledge base for the Nice Almaty chatbot. Static facts extracted from nice-almaty.html (houses, BUS_DATA, AMEN, contacts). No personal data. Re-check prices/routes here if the page changes. Live seat availability lives separately in availability.json.",
+  "generatedAt": "2026-07-05",
   "brand": {
     "name": "Nice Almaty",
-    "tagline": { "ru": "Дом Студентов", "kz": "Студенттер үйі", "en": "Student House" },
     "city": "Алматы / Almaty",
-    "housesCount": 5
-  },
-  "contacts": {
-    "whatsapp": "+7 777 073 99 90",
-    "whatsappLink": "https://wa.me/77770739990",
-    "instagram": "@nice_almaty",
-    "instagramLink": "https://www.instagram.com/nice_almaty",
-    "tiktok": "@nice_almaty"
-  },
-  "commonAmenities": {
-    "ru": ["Камеры наблюдения", "Химия для дома включена", "Wi-Fi бесплатно", "Администраторы следят за порядком", "Стиральная машина включена", "Кухня полностью укомплектована", "Пожарная сигнализация", "Кварц-лампа", "Огнетушители"],
-    "kz": ["Бақылау камералары", "Үй химиясы кіреді", "Тегін Wi-Fi", "Әкімшілер тәртіпті қадағалайды", "Кір жуғыш машина кіреді", "Ас үй толық жабдықталған", "Өрт дабылы", "Кварц шамы", "Өрт сөндіргіштер"],
-    "en": ["Security cameras", "Household chemicals included", "Free Wi-Fi", "Administrators keep order", "Washing machine included", "Fully equipped kitchen", "Fire alarm", "Quartz lamp", "Fire extinguishers"]
-  },
-  "priceIncludes": {
-    "ru": "Койко-место, все общие зоны (кухня, санузел, холл), интернет и стиральная машина. Коммунальные услуги оплачиваются отдельно.",
-    "kz": "Төсек-орын, барлық ортақ аймақтар (ас үй, дәретхана, холл), интернет пен кір жуғыш машина. Коммуналдық қызметтер бөлек төленеді.",
-    "en": "A bed, all common areas (kitchen, bathroom, lounge), internet and washing machine. Utilities are paid separately."
+    "contacts": {
+      "whatsapp": "+7 777 073 99 90",
+      "whatsappLink": "https://wa.me/77770739990",
+      "instagram": "@nice_almaty",
+      "instagramLink": "https://www.instagram.com/nice_almaty",
+      "tiktok": "@nice_almaty"
+    }
   },
   "houses": {
     "1": {
-      "shortName": "Дом №1",
-      "district": { "ru": "Горный Гигант", "kz": "Горный Гигант", "en": "Gorny Gigant" },
-      "price": "65 000 – 70 000 ₸",
-      "badge": { "ru": "Популярный", "kz": "Танымал", "en": "Popular" },
-      "routes": [
-        { "uni": "ТУРАН", "buses": ["70", "124"], "durationMin": 30 },
-        { "uni": "UIB", "buses": ["2"], "durationMin": 28 },
-        { "uni": "КАСПИЙСКИЙ", "buses": ["87"], "durationMin": 41 },
-        { "uni": "САТПАЕВ", "buses": ["87"], "durationMin": 37 },
-        { "uni": "МУИТ", "buses": ["70", "124", "87"], "durationMin": 20 },
-        { "uni": "КАЗГУ", "buses": ["70", "121"], "durationMin": 20 },
-        { "uni": "КБТУ", "buses": ["2"], "durationMin": 35 }
-      ]
+      "number": "Дом 1",
+      "district": "Горный Гигант",
+      "gender": "парни",
+      "address": "Азербаева 27",
+      "status": "Активен",
+      "mapLink": "https://2gis.kz/almaty/search/Азербаева%2027",
+      "amenities": {
+        "wifi": true,
+        "kitchen": true,
+        "laundry": true
+      }
     },
     "2": {
-      "shortName": "Дом №2",
-      "district": { "ru": "Рядом с Парком Горького", "kz": "Горький саябағына жақын", "en": "Near Gorky Park" },
-      "price": "55 000 – 60 000 ₸",
-      "badge": { "ru": "Новый", "kz": "Жаңа", "en": "New" },
-      "routes": [
-        { "uni": "КБТУ", "buses": ["118"], "durationMin": 28 },
-        { "uni": "КАЗНПУ", "buses": ["118"], "durationMin": 25 },
-        { "uni": "АСФЕНДИЯРОВА", "buses": ["210", "206", "209", "224"], "durationMin": 30 },
-        { "uni": "ЖЕНПУ", "buses": ["22"], "durationMin": 25 },
-        { "uni": "КРМУ", "buses": ["206", "209", "225"], "durationMin": 35 }
+      "number": "Дом 2",
+      "district": "Парк Горького",
+      "gender": "смешанный",
+      "address": "Средняя 6",
+      "status": "Активен",
+      "mapLink": "https://2gis.kz/almaty/search/Средняя%206",
+      "description": "Дом расположен рядом с парком Горького, в удобном районе города. Недалеко находятся Арбат и две конечные станции общественного транспорта, благодаря чему можно быстро и без пересадок добраться до многих университетов Алматы. Отличный вариант для студентов, которым важны комфорт и удобная транспортная развязка.",
+      "amenities": {
+        "wifi": true,
+        "kitchen": true,
+        "laundry": true
+      },
+      "advantages": [
+        "📍 Рядом с парком Горького",
+        "🚍 Две конечные остановки общественного транспорта",
+        "🏙 Недалеко от Арбата",
+        "🎓 Удобно добираться до большинства университетов",
+        "🛍 Развитая инфраструктура"
+      ],
+      "universities": [
+        "КБТУ",
+        "КАЗНПУ",
+        "КАЗНМУ",
+        "ЖЕНПУ",
+        "КРМУ",
+        "КАСПИЙСКИЙ",
+        "РВМК",
+        "ПЕРСПЕКТИВА",
+        "АДТСЫМБАТ",
+        "РЭЦК"
       ]
     },
     "3": {
-      "shortName": "Дом №3",
-      "district": { "ru": "Медеуский район", "kz": "Медеу ауданы", "en": "Medeu district" },
-      "price": "55 000 – 70 000 ₸",
-      "badge": { "ru": "Премиум", "kz": "Премиум", "en": "Premium" },
-      "routes": [
-        { "uni": "ТУРАН", "buses": ["70", "124"], "durationMin": 25 },
-        { "uni": "UIB", "buses": ["2"], "durationMin": 23 },
-        { "uni": "КАСПИЙСКИЙ", "buses": ["87"], "durationMin": 41 },
-        { "uni": "САТПАЕВ", "buses": ["87"], "durationMin": 33 },
-        { "uni": "МУИТ", "buses": ["70", "124", "87"], "durationMin": 15 },
-        { "uni": "КАЗГУ", "buses": ["70", "121"], "durationMin": 15 },
-        { "uni": "КБТУ", "buses": ["2"], "durationMin": 30 }
+      "number": "Дом 3",
+      "district": "Горный Гигант",
+      "gender": "смешанный",
+      "address": "Шукшина 34",
+      "status": "Активен",
+      "mapLink": "https://2gis.kz/almaty/search/Шукшина%2034",
+      "description": "Дом расположен в районе Горный Гигант, выше проспекта Аль-Фараби, в тихом и комфортном месте. Главное преимущество дома — практически в каждой комнате есть собственный санузел, что делает проживание более удобным и комфортным.",
+      "amenities": {
+        "wifi": true,
+        "kitchen": true,
+        "laundry": true
+      },
+      "advantages": [
+        "📍 Район Горный Гигант",
+        "🌿 Тихий и спокойный район",
+        "🚿 Почти в каждой комнате собственный санузел",
+        "🎓 Удобное расположение относительно университетов",
+        "🏡 Комфортные условия проживания"
+      ],
+      "universities": [
+        "ТУРАН",
+        "UIB",
+        "КАСПИЙСКИЙ",
+        "САТПАЕВА",
+        "МУИТ",
+        "КАЗГУ",
+        "КБТУ",
+        "ПРЕСТИЖ",
+        "РКС",
+        "МИТУКОЛЛЕДЖ"
       ]
     },
     "4": {
-      "shortName": "Дом №4",
-      "district": { "ru": "Нур-Алатау, Бостандыкский р-н", "kz": "Нұр-Алатау, Бостандық ауданы", "en": "Nur-Alatau, Bostandyk district" },
-      "price": "45 000 – 65 000 ₸",
-      "badge": { "ru": "Бюджетный", "kz": "Бюджетті", "en": "Budget" },
-      "routes": [
-        { "uni": "КАЗГАСА", "buses": ["15"], "durationMin": 40 },
-        { "uni": "ALMAU", "buses": ["30"], "durationMin": 42 },
-        { "uni": "METU", "buses": ["15", "128"], "durationMin": 40, "transfer": true }
+      "number": "Дом 4",
+      "district": "Нур-Алатау",
+      "gender": "смешанный",
+      "address": "8-я улица дом 17",
+      "status": "Активен",
+      "mapLink": "https://2gis.kz/almaty/search/8-я%20улица%20дом%2017",
+      "description": "Дом расположен в экологически чистом районе с свежим воздухом, недалеко от парка Первого Президента. Удобное расположение позволяет без труда добираться до университетов и других районов города. Отличный выбор для тех, кто ценит спокойную атмосферу и комфорт.",
+      "amenities": {
+        "wifi": true,
+        "kitchen": true,
+        "laundry": true
+      },
+      "advantages": [
+        "🌿 Экологически чистый район",
+        "🌳 Рядом парк Первого Президента",
+        "🚍 Удобная транспортная доступность",
+        "🌞 Тихая атмосфера",
+        "🎓 Подходит для студентов разных университетов"
+      ],
+      "universities": [
+        "КАЗГАСА",
+        "АЛМАЮ",
+        "МИТУ",
+        "АМК",
+        "АФЭК"
       ]
     },
     "5": {
-      "shortName": "Дом №5",
-      "district": { "ru": "Рядом Dostyk Plaza и Кок-Тобе", "kz": "Dostyk Plaza мен Көк-Төбеге жақын", "en": "Near Dostyk Plaza & Kok-Tobe" },
-      "price": "65 000 – 70 000 ₸",
-      "badge": { "ru": "Для девушек", "kz": "Қыздарға арналған", "en": "For girls" },
-      "routes": [
-        { "uni": "UIB", "buses": ["99", "12"], "durationMin": 20 },
-        { "uni": "КАСПИЙСКИЙ", "buses": ["99"], "durationMin": 25 },
-        { "uni": "КБТУ", "buses": ["12"], "durationMin": 25 },
-        { "uni": "КАЗНПУ", "buses": ["107"], "durationMin": 25 },
-        { "uni": "КАНЗАИУ", "buses": ["107", "5", "29", "141"], "durationMin": 19 }
+      "number": "Дом 5",
+      "district": "Достык плаза",
+      "gender": "смешанный",
+      "address": "Луганского 62",
+      "status": "Активен",
+      "mapLink": "https://2gis.kz/almaty/search/Луганского%2062",
+      "description": "Светлый, просторный и уютный дом, расположенный недалеко от Dostyk Plaza. На территории есть большой двор и просторный балкон, где можно отдохнуть, пообщаться с соседями или провести свободное время. Дом отлично подходит для студентов, которые ценят уютную атмосферу и удобную локацию.",
+      "amenities": {
+        "wifi": true,
+        "kitchen": true,
+        "laundry": true
+      },
+      "advantages": [
+        "📍 Рядом с Dostyk Plaza",
+        "🌳 Большой двор",
+        "☀️ Светлые и просторные комнаты",
+        "🌿 Просторный балкон для отдыха",
+        "🤝 Уютная атмосфера"
+      ],
+      "universities": [
+        "UIB",
+        "КАСПИЙСКИЙ",
+        "КБТУ",
+        "КАЗНПУ",
+        "КАНЗАИУ",
+        "ВЫСШИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ",
+        "ЦАТЭК",
+        "АКСИМ",
+        "АГКТК"
+      ]
+    },
+    "6": {
+      "number": "Дом 6",
+      "status": "Ремонт",
+      "amenities": {
+        "wifi": false,
+        "kitchen": false,
+        "laundry": false
+      }
+    }
+  },
+  "universities": [
+    {
+      "name": "КАЗНУ",
+      "type": "университет",
+      "keywords": [
+        "КазНУ",
+        "казну",
+        "kaznu"
+      ],
+      "recommendedHouses": [
+        "Дом 3",
+        "Дом 1",
+        "Дом 5"
+      ],
+      "travelTime": "20 минут",
+      "comment": "Самый удобный по расположению"
+    }
+  ],
+  "faq": [
+    {
+      "category": "Заселение",
+      "question": "Есть ли свободные места?",
+      "answer": "Свободные места зависят от даты заселения.Подскажите пожалуйста когда вы планируете заехать?",
+      "keywords": [
+        "места",
+        "свободно"
       ]
     }
-  }
+  ]
 }
