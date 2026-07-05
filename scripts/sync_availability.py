@@ -128,16 +128,15 @@ def build_houses(rows):
             continue
         hid = str(hid)
         status = get(r, 12)
+        # NOTE: the address (column 4) is intentionally NOT emitted here. The chatbot
+        # must never output street addresses (only районы), and authoritative house
+        # facts live in the hand-edited data/houses/dom-*.md files.
         entry = {
             "number": get(r, 1),
             "district": get(r, 2),
             "gender": get(r, 3),
-            "address": get(r, 4),
             "status": status,
         }
-        addr = get(r, 4)
-        if addr:
-            entry["mapLink"] = "https://2gis.kz/almaty/search/" + addr.replace(" ", "%20")
         desc = get(r, 8)
         if desc and desc != "-":
             entry["description"] = desc

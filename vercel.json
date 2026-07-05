@@ -3,5 +3,10 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/", "destination": "/nice-almaty" }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "data/**"
+    }
+  }
 }
