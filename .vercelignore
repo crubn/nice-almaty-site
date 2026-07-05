@@ -2,3 +2,6 @@
 .gstack
 # Netlify config is irrelevant on Vercel.
 netlify.toml
+# Raw occupancy table contains residents' names (ФИО) — NEVER deploy it.
+# The chatbot reads data/availability.json instead (names stripped by scripts/sync_availability.py).
+Общежитие Список.xlsx

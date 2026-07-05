@@ -1,0 +1,509 @@
+{
+  "generatedAt": "2026-07-04",
+  "houses": {
+    "1": {
+      "name": "Дом 1",
+      "totals": {
+        "free": 4,
+        "reserved": 2,
+        "occupied": 9,
+        "capacity": 15
+      },
+      "rooms": [
+        {
+          "room": "Комната 1",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        },
+        {
+          "room": "Комната 2",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 3",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "free",
+              "note": "Доступно"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 4",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 5",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "free",
+              "note": "Доступно"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "free",
+              "note": "Доступно"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "free",
+              "note": "Доступно"
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "name": "Дом 2",
+      "totals": {
+        "free": 1,
+        "reserved": 3,
+        "occupied": 11,
+        "capacity": 15
+      },
+      "rooms": [
+        {
+          "room": "Комната 1",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 2",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        },
+        {
+          "room": "Комната 3",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "free",
+              "note": "Доступно"
+            }
+          ]
+        },
+        {
+          "room": "Комната 4",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 5",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "name": "Дом 3",
+      "totals": {
+        "free": 1,
+        "reserved": 2,
+        "occupied": 12,
+        "capacity": 15
+      },
+      "rooms": [
+        {
+          "room": "Комната 1",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        },
+        {
+          "room": "Комната 2",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        },
+        {
+          "room": "Комната 3",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 4",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "free",
+              "note": "Доступно"
+            }
+          ]
+        },
+        {
+          "room": "Комната 5",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "name": "Дом 4",
+      "totals": {
+        "free": 2,
+        "reserved": 5,
+        "occupied": 8,
+        "capacity": 15
+      },
+      "rooms": [
+        {
+          "room": "Комната 1",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        },
+        {
+          "room": "Комната 2",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "free",
+              "note": "Доступно"
+            }
+          ]
+        },
+        {
+          "room": "Комната 3",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "free",
+              "note": "Доступно"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 4",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 5",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "name": "Дом 5",
+      "totals": {
+        "free": 2,
+        "reserved": 2,
+        "occupied": 11,
+        "capacity": 15
+      },
+      "rooms": [
+        {
+          "room": "Комната 1",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 2",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "reserved",
+              "note": "Бронь до 01.08.2025"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 3",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        },
+        {
+          "room": "Комната 4",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "free",
+              "note": "Доступно"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "free",
+              "note": "Доступно"
+            }
+          ]
+        },
+        {
+          "room": "Комната 5",
+          "beds": [
+            {
+              "bed": "Койка 1",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 2",
+              "status": "occupied"
+            },
+            {
+              "bed": "Койка 3",
+              "status": "occupied"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

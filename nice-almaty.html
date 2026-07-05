@@ -475,6 +475,90 @@
     .faq-section h2 { font-size: 1.4rem; }
     .faq-question { font-size: 0.88rem; }
   }
+
+  /* ─── AI CHAT WIDGET ─── */
+  #chat-launcher {
+    position: fixed; right: 22px; bottom: 22px; z-index: 500;
+    width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--blue-light), var(--blue));
+    color: #fff; font-size: 1.7rem; line-height: 1;
+    box-shadow: 0 8px 24px rgba(26,58,143,0.42);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  #chat-launcher:hover { transform: scale(1.07); box-shadow: 0 10px 30px rgba(26,58,143,0.5); }
+  #chat-launcher .cl-badge {
+    position: absolute; top: -3px; right: -3px;
+    background: var(--yellow); color: var(--blue-dark);
+    font-family: 'Montserrat',sans-serif; font-weight: 800; font-size: .62rem;
+    padding: 2px 6px; border-radius: 10px; border: 2px solid var(--white);
+  }
+  #chat-panel {
+    position: fixed; right: 22px; bottom: 94px; z-index: 500;
+    width: 380px; max-width: calc(100vw - 32px); height: 560px; max-height: calc(100vh - 130px);
+    background: var(--white); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 18px 60px rgba(15,34,96,0.28);
+    display: none; flex-direction: column;
+    transform: translateY(12px) scale(.98); opacity: 0; transition: transform .22s ease, opacity .22s ease;
+  }
+  #chat-panel.open { display: flex; transform: translateY(0) scale(1); opacity: 1; }
+  .chat-head {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: #fff; padding: 1rem 1.1rem; display: flex; align-items: center; gap: .75rem;
+  }
+  .chat-head .ch-avatar {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+  }
+  .chat-head .ch-title { font-family: 'Montserrat',sans-serif; font-weight: 800; font-size: .98rem; }
+  .chat-head .ch-sub { font-size: .72rem; opacity: .8; display: flex; align-items: center; gap: 5px; }
+  .chat-head .ch-dot { width: 7px; height: 7px; border-radius: 50%; background: #34D399; display: inline-block; }
+  .chat-head .ch-close {
+    margin-left: auto; background: none; border: none; color: #fff; opacity: .8;
+    font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 2px 6px;
+  }
+  .chat-head .ch-close:hover { opacity: 1; }
+  .chat-body {
+    flex: 1; overflow-y: auto; padding: 1.1rem; background: var(--bg);
+    display: flex; flex-direction: column; gap: .7rem;
+  }
+  .chat-msg { max-width: 82%; padding: .65rem .85rem; border-radius: 15px; font-size: .88rem; line-height: 1.45; white-space: pre-line; word-wrap: break-word; }
+  .chat-msg.bot { align-self: flex-start; background: var(--white); color: var(--gray); border: 1px solid #EceEF3; border-bottom-left-radius: 5px; box-shadow: 0 2px 8px rgba(26,58,143,0.05); }
+  .chat-msg.user { align-self: flex-end; background: linear-gradient(135deg, var(--blue-light), var(--blue)); color: #fff; border-bottom-right-radius: 5px; }
+  .chat-msg.bot a { color: var(--blue-light); font-weight: 600; }
+  .chat-typing { align-self: flex-start; display: flex; gap: 4px; padding: .75rem .9rem; background: var(--white); border: 1px solid #EceEF3; border-radius: 15px; border-bottom-left-radius: 5px; }
+  .chat-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); opacity: .5; animation: chatBlink 1.2s infinite; }
+  .chat-typing span:nth-child(2) { animation-delay: .2s; }
+  .chat-typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes chatBlink { 0%,60%,100%{opacity:.25;transform:translateY(0);} 30%{opacity:.9;transform:translateY(-3px);} }
+  .chat-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 1.1rem .6rem; background: var(--bg); }
+  .chat-chip {
+    background: var(--white); border: 1px solid #D9DEEA; color: var(--blue);
+    font-family: 'Inter',sans-serif; font-size: .76rem; font-weight: 600;
+    padding: .38rem .7rem; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .chat-chip:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .chat-input {
+    display: flex; align-items: center; gap: .5rem; padding: .7rem .8rem;
+    border-top: 1px solid #EceEF3; background: var(--white);
+  }
+  .chat-input input {
+    flex: 1; border: 1px solid #D9DEEA; border-radius: 22px; padding: .6rem .9rem;
+    font-family: 'Inter',sans-serif; font-size: .88rem; outline: none; color: var(--dark);
+  }
+  .chat-input input:focus { border-color: var(--blue-light); }
+  .chat-input button {
+    width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue-light), var(--blue)); color: #fff;
+    font-size: 1.05rem; display: flex; align-items: center; justify-content: center;
+    transition: transform .15s ease;
+  }
+  .chat-input button:hover { transform: scale(1.06); }
+  .chat-input button:disabled { opacity: .5; cursor: default; transform: none; }
+  @media (max-width: 480px) {
+    #chat-panel { right: 8px; left: 8px; bottom: 86px; width: auto; max-width: none; height: calc(100vh - 110px); }
+    #chat-launcher { right: 16px; bottom: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -663,6 +747,28 @@
     </div>
 </footer>
 
+<!-- ═══════════ AI CHAT WIDGET ═══════════ -->
+<button id="chat-launcher" onclick="toggleChat()" aria-label="AI-ассистент">
+  <span>💬</span>
+  <span class="cl-badge" data-i18n="chat_badge">AI</span>
+</button>
+<div id="chat-panel" role="dialog" aria-label="Nice Almaty AI">
+  <div class="chat-head">
+    <div class="ch-avatar">🏠</div>
+    <div>
+      <div class="ch-title" data-i18n="chat_title">Nice Almaty AI</div>
+      <div class="ch-sub"><span class="ch-dot"></span><span data-i18n="chat_status">На связи</span></div>
+    </div>
+    <button class="ch-close" onclick="toggleChat()" aria-label="Закрыть">×</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+  <div class="chat-input">
+    <input id="chat-text" type="text" data-i18n-ph="chat_placeholder" placeholder="Спросите о свободных местах…"
+           onkeydown="if(event.key==='Enter')sendChat()" />
+    <button id="chat-send" onclick="sendChat()" aria-label="Отправить">➤</button>
+  </div>
+</div>
 
 <script>
 function toggleFaq(btn) {
@@ -708,7 +814,17 @@ const UI = {
     buses_none: "нет прямого автобуса",
     buses_unavailable: "Маршруты отображаются на опубликованном сайте",
     buses_direct: "без пересадок",
-    buses_min: "мин"
+    buses_min: "мин",
+    chat_badge: "AI",
+    chat_title: "Nice Almaty AI",
+    chat_status: "На связи",
+    chat_placeholder: "Спросите о свободных местах…",
+    chat_greeting: "Привет! 👋 Я AI-ассистент Nice Almaty. Спросите про свободные места, цены, маршруты до вузов или удобства — помогу подобрать дом.",
+    chat_chip_free: "Где есть места?",
+    chat_chip_price: "Цены",
+    chat_chip_routes: "Маршруты до вузов",
+    chat_chip_contacts: "Как забронировать",
+    chat_error: "Извините, не получилось ответить. Напишите нам в WhatsApp: wa.me/77770739990"
   },
   kz: {
     nav_cta: "Үй таңдау",
@@ -739,7 +855,17 @@ const UI = {
     buses_none: "тікелей автобус жоқ",
     buses_unavailable: "Маршруттар жарияланған сайтта көрсетіледі",
     buses_direct: "ауыстырусыз",
-    buses_min: "мин"
+    buses_min: "мин",
+    chat_badge: "AI",
+    chat_title: "Nice Almaty AI",
+    chat_status: "Онлайн",
+    chat_placeholder: "Бос орындар туралы сұраңыз…",
+    chat_greeting: "Сәлем! 👋 Мен Nice Almaty AI-көмекшісімін. Бос орындар, бағалар, вуздарға маршруттар немесе ыңғайлылықтар туралы сұраңыз — үй таңдауға көмектесемін.",
+    chat_chip_free: "Қай жерде орын бар?",
+    chat_chip_price: "Бағалар",
+    chat_chip_routes: "Вуздарға маршруттар",
+    chat_chip_contacts: "Қалай броньдау керек",
+    chat_error: "Кешіріңіз, жауап бере алмадым. WhatsApp арқылы жазыңыз: wa.me/77770739990"
   },
   en: {
     nav_cta: "Choose a house",
@@ -770,7 +896,17 @@ const UI = {
     buses_none: "no direct bus",
     buses_unavailable: "Routes are shown on the published site",
     buses_direct: "no transfers",
-    buses_min: "min"
+    buses_min: "min",
+    chat_badge: "AI",
+    chat_title: "Nice Almaty AI",
+    chat_status: "Online",
+    chat_placeholder: "Ask about available places…",
+    chat_greeting: "Hi! 👋 I'm the Nice Almaty AI assistant. Ask about free places, prices, bus routes to universities or amenities — I'll help you pick a house.",
+    chat_chip_free: "Where are places free?",
+    chat_chip_price: "Prices",
+    chat_chip_routes: "Routes to universities",
+    chat_chip_contacts: "How to book",
+    chat_error: "Sorry, I couldn't answer. Message us on WhatsApp: wa.me/77770739990"
   }
 };
 
@@ -1309,6 +1445,10 @@ function applyStaticI18n() {
     var k = el.getAttribute('data-i18n-html');
     if (UI[currentLang] && UI[currentLang][k] !== undefined) el.innerHTML = UI[currentLang][k];
   });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-ph');
+    if (UI[currentLang] && UI[currentLang][k] !== undefined) el.setAttribute('placeholder', UI[currentLang][k]);
+  });
 }
 
 function setLang(lang) {
@@ -1323,6 +1463,7 @@ function setLang(lang) {
   if (currentHouseId && document.getElementById('page-detail').style.display === 'block') {
     showDetail(currentHouseId);
   }
+  if (chatStarted) renderChatChips();
 }
 
 // Filter buttons
@@ -1333,6 +1474,116 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// ─── AI chat widget ───
+let chatStarted = false;      // greeting rendered?
+let chatBusy = false;         // request in flight?
+const chatHistory = [];       // rolling [{role, content}] for context
+
+function toggleChat() {
+  const panel = document.getElementById('chat-panel');
+  const open = panel.classList.toggle('open');
+  if (open && !chatStarted) {
+    chatStarted = true;
+    addChatMsg('bot', t('chat_greeting'));
+    renderChatChips();
+  }
+  if (open) setTimeout(function(){ document.getElementById('chat-text').focus(); }, 250);
+}
+
+function chatEscape(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+// Escape, then turn URLs / wa.me / @handles into links.
+function chatFormat(s){
+  var html = chatEscape(s);
+  html = html.replace(/\bhttps?:\/\/[^\s<]+/g, function(u){
+    return '<a href="' + u + '" target="_blank" rel="noopener">' + u + '</a>';
+  });
+  html = html.replace(/\b(wa\.me\/\d+)/g, function(m){
+    return '<a href="https://' + m + '" target="_blank" rel="noopener">' + m + '</a>';
+  });
+  return html;
+}
+
+function addChatMsg(role, text){
+  const body = document.getElementById('chat-body');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + (role === 'user' ? 'user' : 'bot');
+  div.innerHTML = role === 'user' ? chatEscape(text) : chatFormat(text);
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function renderChatChips(){
+  const chips = [
+    { key: 'chat_chip_free',     q: 'chat_chip_free' },
+    { key: 'chat_chip_price',    q: 'chat_chip_price' },
+    { key: 'chat_chip_routes',   q: 'chat_chip_routes' },
+    { key: 'chat_chip_contacts', q: 'chat_chip_contacts' }
+  ];
+  document.getElementById('chat-chips').innerHTML = chips.map(function(c){
+    var label = t(c.key);
+    return '<button class="chat-chip" onclick="sendChat(this.dataset.q)" data-q="' +
+      chatEscape(label) + '">' + chatEscape(label) + '</button>';
+  }).join('');
+}
+
+function showChatTyping(on){
+  const body = document.getElementById('chat-body');
+  var el = document.getElementById('chat-typing');
+  if (on){
+    if (el) return;
+    el = document.createElement('div');
+    el.id = 'chat-typing';
+    el.className = 'chat-typing';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  } else if (el){
+    el.remove();
+  }
+}
+
+async function sendChat(preset){
+  if (chatBusy) return;
+  const input = document.getElementById('chat-text');
+  const text = (preset !== undefined ? preset : input.value).trim();
+  if (!text) return;
+  input.value = '';
+  addChatMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+
+  chatBusy = true;
+  document.getElementById('chat-send').disabled = true;
+  showChatTyping(true);
+
+  try {
+    const resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        lang: currentLang,
+        history: chatHistory.slice(0, -1).slice(-6)
+      })
+    });
+    if (!resp.ok) throw new Error('bad status ' + resp.status);
+    const data = await resp.json();
+    const reply = (data && data.reply) ? data.reply : t('chat_error');
+    showChatTyping(false);
+    addChatMsg('bot', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch (e) {
+    showChatTyping(false);
+    addChatMsg('bot', t('chat_error'));
+  } finally {
+    chatBusy = false;
+    document.getElementById('chat-send').disabled = false;
+    input.focus();
+  }
+}
 
 setTimeout(function(){ setLang(currentLang); }, 0);
 </script>

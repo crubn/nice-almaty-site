@@ -1,0 +1,13 @@
+{
+  "name": "nice-almaty-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nice Almaty student housing site + AI concierge (web chat + WhatsApp via Wazzup).",
+  "scripts": {
+    "sync": "python3 scripts/sync_availability.py",
+    "wazzup": "node scripts/wazzup.js"
+  },
+  "dependencies": {
+    "@vercel/functions": "^1.5.0"
+  }
+}

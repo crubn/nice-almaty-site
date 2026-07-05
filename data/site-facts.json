@@ -1,0 +1,95 @@
+{
+  "_comment": "Curated concierge knowledge base for the Nice Almaty chatbot. Static facts extracted from nice-almaty.html (houses, BUS_DATA, AMEN, contacts). No personal data. Re-check prices/routes here if the page changes. Live seat availability lives separately in availability.json.",
+  "brand": {
+    "name": "Nice Almaty",
+    "tagline": { "ru": "Дом Студентов", "kz": "Студенттер үйі", "en": "Student House" },
+    "city": "Алматы / Almaty",
+    "housesCount": 5
+  },
+  "contacts": {
+    "whatsapp": "+7 777 073 99 90",
+    "whatsappLink": "https://wa.me/77770739990",
+    "instagram": "@nice_almaty",
+    "instagramLink": "https://www.instagram.com/nice_almaty",
+    "tiktok": "@nice_almaty"
+  },
+  "commonAmenities": {
+    "ru": ["Камеры наблюдения", "Химия для дома включена", "Wi-Fi бесплатно", "Администраторы следят за порядком", "Стиральная машина включена", "Кухня полностью укомплектована", "Пожарная сигнализация", "Кварц-лампа", "Огнетушители"],
+    "kz": ["Бақылау камералары", "Үй химиясы кіреді", "Тегін Wi-Fi", "Әкімшілер тәртіпті қадағалайды", "Кір жуғыш машина кіреді", "Ас үй толық жабдықталған", "Өрт дабылы", "Кварц шамы", "Өрт сөндіргіштер"],
+    "en": ["Security cameras", "Household chemicals included", "Free Wi-Fi", "Administrators keep order", "Washing machine included", "Fully equipped kitchen", "Fire alarm", "Quartz lamp", "Fire extinguishers"]
+  },
+  "priceIncludes": {
+    "ru": "Койко-место, все общие зоны (кухня, санузел, холл), интернет и стиральная машина. Коммунальные услуги оплачиваются отдельно.",
+    "kz": "Төсек-орын, барлық ортақ аймақтар (ас үй, дәретхана, холл), интернет пен кір жуғыш машина. Коммуналдық қызметтер бөлек төленеді.",
+    "en": "A bed, all common areas (kitchen, bathroom, lounge), internet and washing machine. Utilities are paid separately."
+  },
+  "houses": {
+    "1": {
+      "shortName": "Дом №1",
+      "district": { "ru": "Горный Гигант", "kz": "Горный Гигант", "en": "Gorny Gigant" },
+      "price": "65 000 – 70 000 ₸",
+      "badge": { "ru": "Популярный", "kz": "Танымал", "en": "Popular" },
+      "routes": [
+        { "uni": "ТУРАН", "buses": ["70", "124"], "durationMin": 30 },
+        { "uni": "UIB", "buses": ["2"], "durationMin": 28 },
+        { "uni": "КАСПИЙСКИЙ", "buses": ["87"], "durationMin": 41 },
+        { "uni": "САТПАЕВ", "buses": ["87"], "durationMin": 37 },
+        { "uni": "МУИТ", "buses": ["70", "124", "87"], "durationMin": 20 },
+        { "uni": "КАЗГУ", "buses": ["70", "121"], "durationMin": 20 },
+        { "uni": "КБТУ", "buses": ["2"], "durationMin": 35 }
+      ]
+    },
+    "2": {
+      "shortName": "Дом №2",
+      "district": { "ru": "Рядом с Парком Горького", "kz": "Горький саябағына жақын", "en": "Near Gorky Park" },
+      "price": "55 000 – 60 000 ₸",
+      "badge": { "ru": "Новый", "kz": "Жаңа", "en": "New" },
+      "routes": [
+        { "uni": "КБТУ", "buses": ["118"], "durationMin": 28 },
+        { "uni": "КАЗНПУ", "buses": ["118"], "durationMin": 25 },
+        { "uni": "АСФЕНДИЯРОВА", "buses": ["210", "206", "209", "224"], "durationMin": 30 },
+        { "uni": "ЖЕНПУ", "buses": ["22"], "durationMin": 25 },
+        { "uni": "КРМУ", "buses": ["206", "209", "225"], "durationMin": 35 }
+      ]
+    },
+    "3": {
+      "shortName": "Дом №3",
+      "district": { "ru": "Медеуский район", "kz": "Медеу ауданы", "en": "Medeu district" },
+      "price": "55 000 – 70 000 ₸",
+      "badge": { "ru": "Премиум", "kz": "Премиум", "en": "Premium" },
+      "routes": [
+        { "uni": "ТУРАН", "buses": ["70", "124"], "durationMin": 25 },
+        { "uni": "UIB", "buses": ["2"], "durationMin": 23 },
+        { "uni": "КАСПИЙСКИЙ", "buses": ["87"], "durationMin": 41 },
+        { "uni": "САТПАЕВ", "buses": ["87"], "durationMin": 33 },
+        { "uni": "МУИТ", "buses": ["70", "124", "87"], "durationMin": 15 },
+        { "uni": "КАЗГУ", "buses": ["70", "121"], "durationMin": 15 },
+        { "uni": "КБТУ", "buses": ["2"], "durationMin": 30 }
+      ]
+    },
+    "4": {
+      "shortName": "Дом №4",
+      "district": { "ru": "Нур-Алатау, Бостандыкский р-н", "kz": "Нұр-Алатау, Бостандық ауданы", "en": "Nur-Alatau, Bostandyk district" },
+      "price": "45 000 – 65 000 ₸",
+      "badge": { "ru": "Бюджетный", "kz": "Бюджетті", "en": "Budget" },
+      "routes": [
+        { "uni": "КАЗГАСА", "buses": ["15"], "durationMin": 40 },
+        { "uni": "ALMAU", "buses": ["30"], "durationMin": 42 },
+        { "uni": "METU", "buses": ["15", "128"], "durationMin": 40, "transfer": true }
+      ]
+    },
+    "5": {
+      "shortName": "Дом №5",
+      "district": { "ru": "Рядом Dostyk Plaza и Кок-Тобе", "kz": "Dostyk Plaza мен Көк-Төбеге жақын", "en": "Near Dostyk Plaza & Kok-Tobe" },
+      "price": "65 000 – 70 000 ₸",
+      "badge": { "ru": "Для девушек", "kz": "Қыздарға арналған", "en": "For girls" },
+      "routes": [
+        { "uni": "UIB", "buses": ["99", "12"], "durationMin": 20 },
+        { "uni": "КАСПИЙСКИЙ", "buses": ["99"], "durationMin": 25 },
+        { "uni": "КБТУ", "buses": ["12"], "durationMin": 25 },
+        { "uni": "КАЗНПУ", "buses": ["107"], "durationMin": 25 },
+        { "uni": "КАНЗАИУ", "buses": ["107", "5", "29", "141"], "durationMin": 19 }
+      ]
+    }
+  }
+}
