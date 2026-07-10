@@ -933,8 +933,6 @@ const houses = [
     name: { ru: "Nice Almaty — Дом №1", kz: "Nice Almaty — №1 үй", en: "Nice Almaty — House №1" },
     shortName: "Дом №1",
     district: { ru: "Горный Гигант", kz: "Горный Гигант", en: "Gorny Gigant" },
-    address: { ru: "Азербаева 27, Алматы", kz: "Әзербаева 27, Алматы", en: "Azerbaeva 27, Almaty" },
-    mapLink: "https://2gis.kz/almaty/search/Азербаева 27",
     price: "65 000 – 70 000 ₸",
     badge: { ru: "Для парней", kz: "Ұлдарға арналған", en: "For guys" },
     thumbBg: "thumb-bg1",
@@ -998,8 +996,6 @@ In the yard there is a tapchan and a wood-fired sauna — a rare format for stud
     name: { ru: "Nice Almaty — Дом №2", kz: "Nice Almaty — №2 үй", en: "Nice Almaty — House №2" },
     shortName: "Дом №2",
     district: { ru: "Парк Горького", kz: "Горький паркі", en: "Gorky Park" },
-    address: { ru: "Средняя 6, Алматы", kz: "Средняя 6, Алматы", en: "Srednyaya 6, Almaty" },
-    mapLink: "https://2gis.kz/almaty/search/Средняя 6",
     price: "55 000 – 60 000 ₸",
     badge: { ru: "Новый", kz: "Жаңа", en: "New" },
     thumbBg: "thumb-bg2",
@@ -1066,8 +1062,6 @@ On the grounds there is a covered spacious courtyard with a tapchan and sofas, c
     name: { ru: "Nice Almaty — Дом №3", kz: "Nice Almaty — №3 үй", en: "Nice Almaty — House №3" },
     shortName: "Дом №3",
     district: { ru: "Горный Гигант", kz: "Горный Гигант", en: "Gorny Gigant" },
-    address: { ru: "Шукшина 34, Алматы", kz: "Шукшина 34, Алматы", en: "Shukshina 34, Almaty" },
-    mapLink: "https://2gis.kz/almaty/search/Шукшина 34",
     price: "55 000 – 70 000 ₸",
     badge: { ru: "Премиум", kz: "Премиум", en: "Premium" },
     thumbBg: "thumb-bg3",
@@ -1119,8 +1113,6 @@ The house is oriented toward students: a calm working atmosphere, study areas, a
     name: { ru: "Nice Almaty — Дом №4", kz: "Nice Almaty — №4 үй", en: "Nice Almaty — House №4" },
     shortName: "Дом №4",
     district: { ru: "Нур-Алатау", kz: "Нұр-Алатау", en: "Nur-Alatau" },
-    address: { ru: "8-я улица, дом 17, Алматы", kz: "8-я улица, 17 үй, Алматы", en: "8th Street 17, Almaty" },
-    mapLink: "https://2gis.kz/almaty/search/8-я улица 17",
     price: "45 000 – 65 000 ₸",
     badge: { ru: "Бюджетный", kz: "Бюджетті", en: "Budget" },
     thumbBg: "thumb-bg4",
@@ -1178,8 +1170,6 @@ The house has 4 rooms:
     name: { ru: "Nice Almaty — Дом №5", kz: "Nice Almaty — №5 үй", en: "Nice Almaty — House №5" },
     shortName: "Дом №5",
     district: { ru: "Рядом Dostyk Plaza", kz: "Dostyk Plaza-ға жақын", en: "Near Dostyk Plaza" },
-    address: { ru: "Луганского 62, Алматы", kz: "Луганского 62, Алматы", en: "Luganskogo 62, Almaty" },
-    mapLink: "https://2gis.kz/almaty/search/Луганского 62",
     price: "65 000 – 70 000 ₸",
     badge: { ru: "Просторный", kz: "Кең", en: "Spacious" },
     thumbBg: "thumb-bg5",
@@ -1272,7 +1262,7 @@ function showDetail(id) {
   currentHouseId = id;
 
   document.getElementById('d-name').textContent = L(h.name);
-  document.getElementById('d-addr').textContent = L(h.address);
+  document.getElementById('d-addr').textContent = L(h.district);
   document.getElementById('d-desc').textContent = L(h.desc);
   document.getElementById('d-price').textContent = h.price;
   
