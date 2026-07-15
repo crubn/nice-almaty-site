@@ -299,8 +299,8 @@ async function handleChat(chatId, messages) {
   if (!reply) return;
 
   // One outbound bot text per burst across Vercel instances (crmMessageId lock).
-  // Handoff ONLY via explicit [МЕНЕДЖЕР] marker → keep unanswered badge.
-  // Normal replies MUST clear unanswered (true) so chats don't stay red by mistake.
+  // Handoff ONLY via explicit [МЕНЕДЖЕР] → keep unanswered badge for managers.
+  // Normal replies omit clearUnanswered so Wazzup clears the green/red counter.
   if (needsManager) {
     console.log("wazzup: handoff → keep unanswered badge", JSON.stringify({ chatId }));
   }
@@ -310,7 +310,7 @@ async function handleChat(chatId, messages) {
     chatType,
     reply,
     burstCrmMessageId(chatId),
-    { clearUnanswered: needsManager ? false : true }
+    needsManager ? { clearUnanswered: false } : {}
   );
   if (sent && sent.skipped) return; // another isolate already answered this burst
   if (sent && sent.ok) {
