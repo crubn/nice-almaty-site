@@ -254,10 +254,12 @@ async function handleChat(chatId, messages) {
   }
 
   // WhatsApp: language unknown → let the model mirror the customer. Booking on.
-  // skipGreeting if we already said hello in the last 24h (or history has a bot turn).
+  // Almost never greet — chat is already open. Only answer a hello once / 24h.
   const hist = historyFor(chatId);
+  const userHello = bot.userLooksLikeGreeting(combined);
   const skipGreeting = recentlyGreeted(chatId)
-    || hist.some((t) => t.role === "assistant");
+    || hist.some((t) => t.role === "assistant")
+    || !userHello;
   const { reply, attachments } = await bot.ask({
     message: combined,
     history: hist,
@@ -272,9 +274,7 @@ async function handleChat(chatId, messages) {
   if (sent && sent.skipped) return; // another isolate already answered this burst
   if (sent && sent.ok) {
     remember(chatId, combined, reply);
-    // First successful reply in a day counts as "already greeted" even if the
-    // model skipped the hello — next messages won't reopen with Здравствуйте.
-    markGreeted(chatId);
+    if (userHello || bot.startsWithFormalGreeting(reply)) markGreeted(chatId);
   }
 
   // Photos only if the text reply landed (avoid orphan media after a skip).

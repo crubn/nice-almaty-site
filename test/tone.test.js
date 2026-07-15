@@ -68,5 +68,18 @@ ok("detects formal greeting", bot.startsWithFormalGreeting("Здравствуй
 ok("skipGreeting in prompt when set",
   /Do NOT greet in this reply/.test(bot.buildSystemPrompt({ skipGreeting: true, channel: "whatsapp", booking: true })));
 
+ok("whatsApp prompt forbids wa.me redirect",
+  /NEVER send wa\.me links/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
+
+ok("web prompt may still mention wa.me",
+  /wa\.me\/77770739990/.test(bot.buildSystemPrompt({ channel: "web", booking: false, skipGreeting: true })));
+
+eq("strip wa.me from whatsapp replies",
+  bot.stripWhatsAppRedirects("Менеджер подтвердит. https://wa.me/77770739990 Спасибо!"),
+  "Менеджер подтвердит. Спасибо!");
+
+ok("question is not a user greeting", !bot.userLooksLikeGreeting("Есть свободные места?"));
+ok("salem is a user greeting", bot.userLooksLikeGreeting("Сәлеметсіз бе"));
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
