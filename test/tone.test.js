@@ -81,5 +81,10 @@ eq("strip wa.me from whatsapp replies",
 ok("question is not a user greeting", !bot.userLooksLikeGreeting("Есть свободные места?"));
 ok("salem is a user greeting", bot.userLooksLikeGreeting("Сәлеметсіз бе"));
 
+ok("prompt forbids meta AI talk",
+  /NEVER talk about yourself as an AI/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
+ok("prompt forbids tech stack answers",
+  /стек технологий/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
