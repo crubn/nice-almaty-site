@@ -16,6 +16,10 @@ function lacks(name, s, re) {
   if (!re.test(s)) { pass++; console.log("✅ " + name); }
   else { fail++; console.log("❌ " + name + " still matched\n   got: " + JSON.stringify(s)); }
 }
+function ok(name, cond) {
+  if (cond) { pass++; console.log("✅ " + name); }
+  else { fail++; console.log("❌ " + name); }
+}
 
 eq("Сәлем → Сәлеметсіз бе",
   bot.enforcePoliteGreeting("Сәлем! Жақын үй керек пе?"),
@@ -51,6 +55,18 @@ has("prompt requires Сәлеметсіз бе",
 
 has("kz fallback is formal", bot.FALLBACK.kz, /^Сәлеметсіз бе/);
 lacks("kz fallback has no bare Сәлем", bot.FALLBACK.kz, /(^|[^еЕ])Сәлем(?!ет)/u);
+
+eq("strip Здравствуйте",
+  bot.stripLeadingGreeting("Здравствуйте. После 23:00 тишина."),
+  "После 23:00 тишина.");
+
+eq("strip Сәлеметсіз бе",
+  bot.stripLeadingGreeting("Сәлеметсіз бе! МУИТке жақын үй бар."),
+  "МУИТке жақын үй бар.");
+
+ok("detects formal greeting", bot.startsWithFormalGreeting("Здравствуйте! Есть места?"));
+ok("skipGreeting in prompt when set",
+  /Do NOT greet in this reply/.test(bot.buildSystemPrompt({ skipGreeting: true, channel: "whatsapp", booking: true })));
 
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

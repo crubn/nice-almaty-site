@@ -153,8 +153,13 @@ async function sendMedia(channelId, chatId, chatType, url, caption) {
 // Short in-memory history per WhatsApp chat (best-effort on warm serverless
 // instances). Stops the bot re-asking university/district after a prior reply.
 const CHAT_HISTORY = new Map(); // chatId -> { at, turns:[{role,content}] }
-const CHAT_HISTORY_TTL_MS = 45 * 60 * 1000;
+const CHAT_HISTORY_TTL_MS = 24 * 60 * 60 * 1000;
 const CHAT_HISTORY_MAX_TURNS = 8;
+
+// Last time we greeted this chat — suppress «Здравствуйте» / «Сәлеметсіз бе»
+// for 24h (same isolate). ask() also hard-strips if skipGreeting is set.
+const GREETED_AT = new Map(); // chatId -> timestamp
+const GREET_TTL_MS = 24 * 60 * 60 * 1000;
 
 function historyFor(chatId) {
   const row = CHAT_HISTORY.get(chatId);
@@ -172,6 +177,18 @@ function remember(chatId, userText, assistantText) {
     { role: "assistant", content: assistantText }
   ).slice(-CHAT_HISTORY_MAX_TURNS);
   CHAT_HISTORY.set(chatId, { at: Date.now(), turns });
+}
+function recentlyGreeted(chatId) {
+  const at = GREETED_AT.get(chatId);
+  if (!at) return false;
+  if (Date.now() - at > GREET_TTL_MS) {
+    GREETED_AT.delete(chatId);
+    return false;
+  }
+  return true;
+}
+function markGreeted(chatId) {
+  GREETED_AT.set(chatId, Date.now());
 }
 
 // Group inbound messages by chat and answer ONCE per chat. Rapid double-sends
@@ -237,18 +254,28 @@ async function handleChat(chatId, messages) {
   }
 
   // WhatsApp: language unknown → let the model mirror the customer. Booking on.
+  // skipGreeting if we already said hello in the last 24h (or history has a bot turn).
+  const hist = historyFor(chatId);
+  const skipGreeting = recentlyGreeted(chatId)
+    || hist.some((t) => t.role === "assistant");
   const { reply, attachments } = await bot.ask({
     message: combined,
-    history: historyFor(chatId),
+    history: hist,
     channel: "whatsapp",
     booking: true,
+    skipGreeting,
   });
   if (!reply) return;
 
   // One outbound bot text per chat per ~20s across all Vercel instances.
   const sent = await sendReply(channelId, chatId, chatType, reply, burstCrmMessageId(chatId));
   if (sent && sent.skipped) return; // another isolate already answered this burst
-  if (sent && sent.ok) remember(chatId, combined, reply);
+  if (sent && sent.ok) {
+    remember(chatId, combined, reply);
+    // First successful reply in a day counts as "already greeted" even if the
+    // model skipped the hello — next messages won't reopen with Здравствуйте.
+    markGreeted(chatId);
+  }
 
   // Photos only if the text reply landed (avoid orphan media after a skip).
   if (sent && sent.ok) {
