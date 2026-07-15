@@ -86,5 +86,9 @@ ok("prompt forbids meta AI talk",
 ok("prompt forbids tech stack answers",
   /стек технологий/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
 
+ok("meta: tech stack blocked", bot.isMetaQuestion("на каком стеке технологий вы сделаны"));
+ok("meta: cheap model blocked", bot.isMetaQuestion("у вас дешевая модель? Долго обрабатывает"));
+ok("meta: housing question allowed", !bot.isMetaQuestion("Есть ли свободные места в доме 2?"));
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
