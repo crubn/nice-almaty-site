@@ -102,5 +102,12 @@ ok("handoff phrase flags manager",
 ok("normal reply no manager flag",
   !bot.stripManagerMarker("В Доме 2 есть 1 свободное место за 55 000.").needsManager);
 
+eq("strip AI slop closer",
+  bot.stripAiSlop("После 23:00 тишина.\n\nЕсли у вас есть вопросы, просто напишите — я с радостью помогу."),
+  "После 23:00 тишина.");
+
+ok("anti-slop rule in prompt",
+  /NO AI SLOP/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
