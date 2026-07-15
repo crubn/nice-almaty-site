@@ -34,6 +34,9 @@ Project → **Settings → Environment Variables** (or `vercel env add`):
 | `WAZZUP_API_KEY` | yes | Wazzup API key from step 2 |
 | `WAZZUP_CHANNEL_ID` | yes | Your WhatsApp channel id (find it: `channels` below) |
 | `WAZZUP_WEBHOOK_SECRET` | strongly rec. | Random string; added to the webhook URL so only Wazzup can trigger it |
+| `OPENAI_API_KEY` or `GROQ_API_KEY` | for voice | Whisper transcription of WhatsApp voice notes (either one is enough). Groq free tier works (`whisper-large-v3`). Without a key the bot asks to write in text. |
+| `WHISPER_MODEL` | no | Override model (`whisper-1` / `whisper-large-v3`) |
+| `WHISPER_LANGUAGE` | no | Force language code (`ru`, `kk`, …). Default: auto-detect |
 | `WA_BOT_ENABLED` | no | Set to `false` to mute the bot (backup kill switch; needs redeploy) |
 | `EDGE_CONFIG` | no | Enables the **instant** kill switch (see below) |
 
@@ -62,6 +65,8 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
 
 - Send a WhatsApp message to your business number from another phone:
   *"есть свободные места?"* → the bot should reply from the live table.
+- Voice notes: with `OPENAI_API_KEY` or `GROQ_API_KEY` set, a ГС is transcribed then answered
+  like text. Logs show `wazzup: voice` with a short transcript preview.
 - Or send a message **as** the bot to a test number:
   `WAZZUP_API_KEY=xxx WAZZUP_CHANNEL_ID=xxx node scripts/wazzup.js send 77770739990 "тест"`
 - Watch logs: `vercel logs YOUR-APP.vercel.app` — every inbound/outbound line is logged

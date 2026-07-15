@@ -17,6 +17,7 @@
 
 const bot = require("../lib/bot.js");
 const sheets = require("../lib/sheets.js");
+const transcribe = require("../lib/transcribe.js");
 
 const WAZZUP_BASE = process.env.WAZZUP_API_BASE || "https://api.wazzup24.com/v3";
 
@@ -67,15 +68,42 @@ function isGroup(m) {
   return t.indexOf("group") !== -1 || (typeof id === "string" && id.indexOf("@g.us") !== -1);
 }
 
-// A message is actionable only if it's a real inbound text from a 1:1 chat.
+// Inbound 1:1 text OR voice (audio) — images/docs/etc. still skipped.
 function actionable(m) {
   if (!m || typeof m !== "object") return false;
-  if (m.type && m.type !== "text") return false;   // skip images/audio/etc.
+  const isAudio = transcribe.isAudioType(m);
+  if (m.type && m.type !== "text" && !isAudio) return false;
   if (isOutbound(m)) return false;
   if (isGroup(m)) return false;
   if (!extractChatId(m)) return false;
+  if (isAudio) return !!transcribe.extractContentUri(m);
   return !!extractText(m);
 }
+
+// Voice URLs from Wazzup expire quickly — download + STT BEFORE debounce.
+async function materializeTexts(messages) {
+  const out = [];
+  for (const m of messages) {
+    const resolved = await transcribe.resolveMessageText(m);
+    out.push({
+      chatId: extractChatId(m),
+      channelId: m.channelId,
+      chatType: m.chatType,
+      text: resolved.text || "",
+      source: resolved.source,
+      error: resolved.error || null,
+      provider: resolved.provider || null,
+    });
+  }
+  return out;
+}
+
+const VOICE_FAIL = {
+  no_stt_key:
+    "Сейчас голосовые ещё настраиваются. Напишите, пожалуйста, текстом — отвечу сразу.",
+  default:
+    "Не удалось распознать голосовое сообщение. Напишите, пожалуйста, текстом — отвечу сразу.",
+};
 
 // Wazzup rejects a second POST with the same crmMessageId (≈60s window).
 // We use that as a cross-instance lock so two serverless isolates don't each
@@ -234,14 +262,14 @@ const PENDING = new Map(); // chatId -> { messages, waiters, timer }
 // ≥12–15s so «Я учусь в кому» + quick correction «Крму» merge into one reply.
 const DEBOUNCE_MS = Number(process.env.WA_DEBOUNCE_MS || 15000);
 
-function enqueueChat(chatId, messages) {
+function enqueueChat(chatId, parts) {
   return new Promise((resolve) => {
     let slot = PENDING.get(chatId);
     if (!slot) {
       slot = { messages: [], waiters: [], timer: null };
       PENDING.set(chatId, slot);
     }
-    slot.messages.push(...messages);
+    slot.messages.push(...parts);
     slot.waiters.push(resolve);
     if (slot.timer) clearTimeout(slot.timer);
     slot.timer = setTimeout(() => {
@@ -255,16 +283,29 @@ function enqueueChat(chatId, messages) {
   });
 }
 
-async function handleChat(chatId, messages) {
-  const texts = messages.map(extractText).map((t) => t.trim()).filter(Boolean);
-  if (!texts.length) return;
-  const combined = texts.join("\n");
-  const first = messages[0];
+async function handleChat(chatId, parts) {
+  const texts = parts.map((p) => String(p.text || "").trim()).filter(Boolean);
+  const first = parts[0] || {};
   const chatType = first.chatType || "whatsapp";
   const channelId = first.channelId || process.env.WAZZUP_CHANNEL_ID;
+
+  if (!texts.length) {
+    const voiceTried = parts.some((p) => p.source === "audio");
+    if (voiceTried) {
+      const reason = (parts.find((p) => p.error) || {}).error;
+      const reply = reason === "no_stt_key" ? VOICE_FAIL.no_stt_key : VOICE_FAIL.default;
+      console.log("wazzup: voice fail", JSON.stringify({ chatId, reason: reason || "empty" }));
+      await sendReply(channelId, chatId, chatType, reply, burstCrmMessageId(chatId), {});
+    }
+    return;
+  }
+
+  const combined = texts.join("\n");
+  const hadVoice = parts.some((p) => p.source === "audio" && p.text);
   console.log("wazzup: inbound", JSON.stringify({
     chatId,
     parts: texts.length,
+    voice: hadVoice,
     text: combined.slice(0, 300),
   }));
 
@@ -360,6 +401,21 @@ module.exports = async (req, res) => {
   // Ack fast so Wazzup doesn't retry; process AI + send in the background.
   res.status(200).json({ ok: true, accepted: messages.length, chats: chats.length });
 
-  const work = Promise.all(chats.map(({ chatId, messages: ms }) => enqueueChat(chatId, ms)));
+  // Materialize voice → text immediately (URLs expire), then debounce as usual.
+  const work = Promise.all(chats.map(async ({ chatId, messages: ms }) => {
+    const parts = await materializeTexts(ms);
+    for (const p of parts) {
+      if (p.source === "audio") {
+        console.log("wazzup: voice", JSON.stringify({
+          chatId,
+          ok: !!p.text,
+          error: p.error || null,
+          provider: p.provider || null,
+          preview: (p.text || "").slice(0, 120),
+        }));
+      }
+    }
+    return enqueueChat(chatId, parts);
+  }));
   if (waitUntil) { waitUntil(work); } else { await work; }
 };

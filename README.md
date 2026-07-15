@@ -86,6 +86,7 @@ python3 scripts/sync_availability.py   # → data/site-facts.json + data/availab
 | `DEEPSEEK_API_KEY` | да | Ключ DeepSeek API |
 | `DEEPSEEK_MODEL` | нет | Точный id модели «V4 Flash» (по умолчанию `deepseek-chat`) |
 | `DEEPSEEK_BASE_URL` | нет | По умолчанию `https://api.deepseek.com` |
+| `OPENAI_API_KEY` или `GROQ_API_KEY` | для ГС | Расшифровка голосовых в WhatsApp (Whisper). См. [WHATSAPP_SETUP.md](WHATSAPP_SETUP.md) |
 
 ```bash
 vercel env add DEEPSEEK_API_KEY
