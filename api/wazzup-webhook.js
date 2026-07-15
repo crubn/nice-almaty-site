@@ -76,15 +76,25 @@ function actionable(m) {
   return !!extractText(m);
 }
 
-async function sendReply(channelId, chatId, chatType, text) {
+// Wazzup rejects a second POST with the same crmMessageId (≈60s window).
+// We use that as a cross-instance lock so two serverless isolates don't each
+// send a full answer when the customer taps send twice a few seconds apart.
+function burstCrmMessageId(chatId) {
+  const windowMs = Number(process.env.WA_BURST_WINDOW_MS || 20000);
+  const bucket = Math.floor(Date.now() / Math.max(5000, windowMs));
+  return `nice-bot-${chatId}-${bucket}`;
+}
+
+async function sendReply(channelId, chatId, chatType, text, crmMessageId) {
   const apiKey = process.env.WAZZUP_API_KEY;
-  if (!apiKey) { console.error("wazzup: WAZZUP_API_KEY not set"); return; }
+  if (!apiKey) { console.error("wazzup: WAZZUP_API_KEY not set"); return { ok: false }; }
   const body = {
     channelId: channelId || process.env.WAZZUP_CHANNEL_ID,
     chatId,
     chatType: chatType || "whatsapp",
     text,
   };
+  if (crmMessageId) body.crmMessageId = crmMessageId;
   try {
     const r = await fetch(`${WAZZUP_BASE}/message`, {
       method: "POST",
@@ -93,12 +103,18 @@ async function sendReply(channelId, chatId, chatType, text) {
     });
     if (!r.ok) {
       const detail = await r.text().catch(() => "");
+      if (r.status === 400 && /repeatedCrmMessageId/i.test(detail)) {
+        console.log("wazzup: burst lock — duplicate reply skipped", JSON.stringify({ chatId, crmMessageId }));
+        return { ok: false, skipped: true };
+      }
       console.error("wazzup send failed", r.status, detail.slice(0, 300));
-    } else {
-      console.log("wazzup: replied", JSON.stringify({ chatId, len: text.length }));
+      return { ok: false };
     }
+    console.log("wazzup: replied", JSON.stringify({ chatId, len: text.length, crmMessageId: crmMessageId || null }));
+    return { ok: true };
   } catch (e) {
     console.error("wazzup send error", (e && e.name) || e);
+    return { ok: false };
   }
 }
 
@@ -173,10 +189,10 @@ function groupByChat(messages) {
   return order.map((chatId) => ({ chatId, messages: map.get(chatId) }));
 }
 
-// Debounce per chat across separate webhook POSTs (common when the customer
-// taps send twice quickly). Collect ~1.5s, then one combined reply.
+// Debounce per chat on the SAME isolate. Cross-isolate doubles are stopped by
+// crmMessageId burst lock in sendReply (see burstCrmMessageId).
 const PENDING = new Map(); // chatId -> { messages, waiters, timer }
-const DEBOUNCE_MS = 1500;
+const DEBOUNCE_MS = Number(process.env.WA_DEBOUNCE_MS || 5500);
 
 function enqueueChat(chatId, messages) {
   return new Promise((resolve) => {
@@ -219,12 +235,18 @@ async function handleChat(chatId, messages) {
     channel: "whatsapp",
     booking: true,
   });
-  if (reply) {
-    await sendReply(channelId, chatId, chatType, reply);
-    remember(chatId, combined, reply);
-  }
-  for (const a of attachments || []) {
-    await sendMedia(channelId, chatId, chatType, a.mediaUrl, a.caption);
+  if (!reply) return;
+
+  // One outbound bot text per chat per ~20s across all Vercel instances.
+  const sent = await sendReply(channelId, chatId, chatType, reply, burstCrmMessageId(chatId));
+  if (sent && sent.skipped) return; // another isolate already answered this burst
+  if (sent && sent.ok) remember(chatId, combined, reply);
+
+  // Photos only if the text reply landed (avoid orphan media after a skip).
+  if (sent && sent.ok) {
+    for (const a of attachments || []) {
+      await sendMedia(channelId, chatId, chatType, a.mediaUrl, a.caption);
+    }
   }
 }
 
