@@ -109,6 +109,16 @@ const VOICE_FAIL = {
 // Wazzup rejects a second POST with the same crmMessageId (≈60s window).
 // Lock MUST be keyed to the inbound batch (message ids / text), NOT wall-clock
 // buckets — a time bucket would also block legitimate follow-up replies.
+function fnv1a(s) {
+  let h = 2166136261;
+  const str = String(s || "");
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(36);
+}
+
 function burstCrmMessageId(chatId, parts) {
   const ids = (parts || [])
     .map((p) => p && (p.messageId || p.message_id))
@@ -116,15 +126,13 @@ function burstCrmMessageId(chatId, parts) {
     .map(String)
     .sort();
   if (ids.length) {
-    return ("nice-bot-" + chatId + "-" + ids.join(",")).slice(0, 120);
+    const full = "nice-bot-" + chatId + "-" + ids.join(",");
+    // Truncation alone collides on large bursts — keep a hash of the full key.
+    if (full.length <= 120) return full;
+    return (full.slice(0, 100) + "-" + fnv1a(full)).slice(0, 120);
   }
-  const text = (parts || []).map((p) => String((p && p.text) || "")).join("\n").slice(0, 240);
-  let h = 2166136261;
-  for (let i = 0; i < text.length; i++) {
-    h ^= text.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return "nice-bot-" + chatId + "-t" + (h >>> 0).toString(36);
+  const text = (parts || []).map((p) => String((p && p.text) || "")).join("\n");
+  return ("nice-bot-" + chatId + "-t" + fnv1a(text)).slice(0, 120);
 }
 
 // Stickers / thumbs-up reactions — do not waste a full AI reply (and do not
@@ -199,10 +207,11 @@ async function sendMedia(channelId, chatId, chatType, url, caption, opts) {
     // Keep the same unanswered policy as the text reply (media must not wipe a handoff badge).
     clearUnanswered: keepUnanswered ? false : true,
   };
+  if (opts.crmMessageId) body.crmMessageId = opts.crmMessageId;
   const linkFallback = () => sendReply(
     channelId, chatId, chatType,
     (caption ? caption + " " : "") + url,
-    null,
+    opts.crmMessageId ? String(opts.crmMessageId).slice(0, 116) + "-L" : null,
     { clearUnanswered: keepUnanswered ? false : true }
   );
   try {
@@ -336,6 +345,7 @@ async function handleChat(chatId, parts) {
       console.log("wazzup: voice fail", JSON.stringify({ chatId, reason: reason || "empty" }));
       await sendReply(channelId, chatId, chatType, reply, lockId, {
         clearUnanswered: true,
+        refMessageId: [...parts].reverse().map((p) => p.messageId).find(Boolean) || null,
       });
     }
     return;
@@ -391,7 +401,11 @@ async function handleChat(chatId, parts) {
     lockId,
     sendOpts
   );
-  if (sent && sent.skipped) return; // another isolate already answered this burst
+  if (sent && sent.skipped) {
+    // Winner isolate already replied — still store context on this isolate.
+    remember(chatId, combined, reply);
+    return;
+  }
   if (sent && sent.ok) {
     remember(chatId, combined, reply);
     if (userHello || bot.startsWithFormalGreeting(reply)) markGreeted(chatId);
@@ -399,9 +413,13 @@ async function handleChat(chatId, parts) {
 
   // Photos only if the text reply landed (avoid orphan media after a skip).
   if (sent && sent.ok) {
+    let i = 0;
     for (const a of attachments || []) {
+      // Keep suffix room so "-mN" / "-mN-L" never collide with truncated lockId.
+      const mediaLock = (String(lockId).slice(0, 100) + "-m" + (i++)).slice(0, 120);
       await sendMedia(channelId, chatId, chatType, a.mediaUrl, a.caption, {
         clearUnanswered: needsManager ? false : true,
+        crmMessageId: mediaLock,
       });
     }
   }

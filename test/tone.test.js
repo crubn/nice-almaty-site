@@ -106,6 +106,24 @@ eq("strip AI slop closer",
   bot.stripAiSlop("После 23:00 тишина.\n\nЕсли у вас есть вопросы, просто напишите — я с радостью помогу."),
   "После 23:00 тишина.");
 
+eq("strip AI slop single-paragraph fluff → empty",
+  bot.stripAiSlop("Если у вас есть вопросы, дайте знать."),
+  "");
+
+eq("strip AI slop keeps housing content",
+  bot.stripAiSlop("В доме тихо. Если у вас есть вопросы — пишите!"),
+  "В доме тихо.");
+
+ok("strip AI slop keeps payment FAQ opener",
+  /Kaspi|оплат/i.test(bot.stripAiSlop("Если у вас есть вопросы по оплате — переведите на Kaspi до 18:00.")));
+
+ok("meta leak: housing rules OK",
+  !bot.replyLeaksMeta("В доме есть внутренние правила проживания."));
+ok("meta leak: access system OK",
+  !bot.replyLeaksMeta("В доме есть внутренняя система контроля доступа."));
+ok("meta leak: language model blocked",
+  bot.replyLeaksMeta("Я работаю на базе языковой модели."));
+
 ok("anti-slop rule in prompt",
   /NO AI SLOP/.test(bot.buildSystemPrompt({ channel: "whatsapp", booking: true, skipGreeting: true })));
 
