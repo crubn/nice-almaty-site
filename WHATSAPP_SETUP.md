@@ -104,6 +104,10 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   address, complaints, booking transfer…), it sends `clearUnanswered: false` so the
   chat stays **unanswered/green** for managers. Ordinary bot answers send
   `clearUnanswered: true` so the counter clears (chat looks handled).
+- **Manager mute:** after `[МЕНЕДЖЕР]`, or when a human writes from Wazzup UI / phone
+  (`isEcho` / `sentFromApp`), the bot **stops answering that chat** for ~12h
+  (`WA_MANAGER_MUTE_MS`) so it does not reply together with the manager.
+  Optional durable list: sheet tab `Молчит бот` with columns `Телефон`, `До` (date).
 - **Privacy:** residents' names never leave the table; only availability counts, room
   statuses, and booking dates are in the data the model sees.
 - **Idempotency:** v1 does not de-duplicate Wazzup retries. We ack fast (`200`) to avoid

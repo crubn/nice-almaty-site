@@ -18,6 +18,7 @@
 const bot = require("../lib/bot.js");
 const sheets = require("../lib/sheets.js");
 const transcribe = require("../lib/transcribe.js");
+const managerMute = require("../lib/manager-mute.js");
 
 const WAZZUP_BASE = process.env.WAZZUP_API_BASE || "https://api.wazzup24.com/v3";
 
@@ -244,6 +245,44 @@ const CHAT_HISTORY_MAX_TURNS = 8;
 const GREETED_AT = new Map(); // chatId -> timestamp
 const GREET_TTL_MS = 24 * 60 * 60 * 1000;
 
+function muteChat(chatId, reason) {
+  const row = managerMute.muteChat(chatId, reason, sheets.normalizePhone);
+  if (row) {
+    console.log("wazzup: mute for manager", JSON.stringify({
+      chatId: row.key,
+      reason: row.reason,
+      hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+    }));
+  }
+}
+
+function isChatMuted(chatId) {
+  return managerMute.isMuted(chatId, sheets.normalizePhone);
+}
+
+function noteManagerActivity(messages) {
+  const muted = managerMute.noteManagerActivity(messages, {
+    extractChatId,
+    normalizePhone: sheets.normalizePhone,
+    isGroup,
+  });
+  for (const row of muted) {
+    console.log("wazzup: mute for manager", JSON.stringify({
+      chatId: row.key,
+      reason: row.reason,
+      hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+    }));
+  }
+}
+
+async function refreshMuteSheet() {
+  if (!managerMute.sheetCacheStale()) return;
+  try {
+    const rows = await sheets.fetchMuteRows().catch(() => null);
+    if (rows) managerMute.setSheetMutes(rows, sheets.normalizePhone);
+  } catch (e) { /* ignore */ }
+}
+
 function historyFor(chatId) {
   const row = CHAT_HISTORY.get(chatId);
   if (!row) return [];
@@ -330,6 +369,15 @@ async function handleChat(chatId, parts) {
   const channelId = first.channelId || process.env.WAZZUP_CHANNEL_ID;
   const lockId = burstCrmMessageId(chatId, parts);
 
+  // Manager already in this chat → stay silent (do not answer "together").
+  await refreshMuteSheet();
+  if (isChatMuted(chatId)) {
+    console.log("wazzup: muted (manager active)", JSON.stringify({
+      chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
+    }));
+    return;
+  }
+
   // Defense-in-depth: blocklist also checked before STT in the webhook entry.
   const ignored = await sheets.getIgnoredPhones().catch(() => []);
   if (sheets.isIgnoredPhone(chatId, ignored)) {
@@ -404,11 +452,14 @@ async function handleChat(chatId, parts) {
   if (sent && sent.skipped) {
     // Winner isolate already replied — still store context on this isolate.
     remember(chatId, combined, reply);
+    if (needsManager) muteChat(chatId, "bot_handoff_skipped_peer");
     return;
   }
   if (sent && sent.ok) {
     remember(chatId, combined, reply);
     if (userHello || bot.startsWithFormalGreeting(reply)) markGreeted(chatId);
+    // After handoff the human owns the chat — stop auto-replies.
+    if (needsManager) muteChat(chatId, "bot_handoff");
   }
 
   // Photos only if the text reply landed (avoid orphan media after a skip).
@@ -453,7 +504,11 @@ module.exports = async (req, res) => {
     return res.status(200).json({ ok: true, muted: true });
   }
 
-  const messages = Array.isArray(body.messages) ? body.messages.filter(actionable) : [];
+  const allMessages = Array.isArray(body.messages) ? body.messages : [];
+  // Manager messages are outbound (isEcho) — learn them BEFORE filtering to inbound.
+  noteManagerActivity(allMessages);
+
+  const messages = allMessages.filter(actionable);
   const chats = groupByChat(messages);
 
   // Ack fast so Wazzup doesn't retry; process AI + send in the background.
@@ -461,7 +516,15 @@ module.exports = async (req, res) => {
 
   // Blocklist BEFORE STT (voice URLs + Whisper cost). Then materialize voice
   // immediately (Wazzup store links expire) and debounce text handling.
-  const work = Promise.all(chats.map(async ({ chatId, messages: ms }) => {
+  const work = (async () => {
+    await refreshMuteSheet();
+    await Promise.all(chats.map(async ({ chatId, messages: ms }) => {
+    if (isChatMuted(chatId)) {
+      console.log("wazzup: muted (manager active)", JSON.stringify({
+        chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
+      }));
+      return;
+    }
     const ignored = await sheets.getIgnoredPhones().catch(() => []);
     if (sheets.isIgnoredPhone(chatId, ignored)) {
       console.log("wazzup: ignored (blocklist)", JSON.stringify({ chatId: sheets.normalizePhone(chatId) }));
@@ -480,6 +543,7 @@ module.exports = async (req, res) => {
       }
     }
     return enqueueChat(chatId, parts);
-  }));
+    }));
+  })();
   if (waitUntil) { waitUntil(work); } else { await work; }
 };
