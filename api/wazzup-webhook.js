@@ -245,23 +245,46 @@ const CHAT_HISTORY_MAX_TURNS = 8;
 const GREETED_AT = new Map(); // chatId -> timestamp
 const GREET_TTL_MS = 24 * 60 * 60 * 1000;
 
-function muteChat(chatId, reason) {
-  const row = managerMute.muteChat(chatId, reason, sheets.normalizePhone);
+async function muteChat(chatId, reason) {
+  // Await Blob persist so other Vercel isolates see the mute immediately.
+  const row = await managerMute.muteChatAsync(chatId, reason, sheets.normalizePhone);
   if (row) {
     console.log("wazzup: mute for manager", JSON.stringify({
       chatId: row.key,
       reason: row.reason,
       hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+      blob: !!process.env.BLOB_READ_WRITE_TOKEN,
     }));
   }
 }
 
-function isChatMuted(chatId) {
-  return managerMute.isMuted(chatId, sheets.normalizePhone);
+async function isChatMuted(chatId, opts) {
+  return managerMute.isMutedAsync(chatId, sheets.normalizePhone, opts);
 }
 
-function noteManagerActivity(messages) {
-  const muted = managerMute.noteManagerActivity(messages, {
+async function noteManagerActivity(messages) {
+  // Log outbound shapes we did NOT classify as human — helps catch Wazzup field drift.
+  for (const m of messages || []) {
+    if (!m || typeof m !== "object") continue;
+    if (isGroup(m)) continue;
+    if (!isOutbound(m)) continue;
+    if (managerMute.isBotCrmMessage(m)) continue;
+    if (managerMute.isHumanOutbound(m, isGroup)) continue;
+    console.log("wazzup: outbound not muted", JSON.stringify({
+      chatId: sheets.normalizePhone(extractChatId(m)) || extractChatId(m),
+      isEcho: m.isEcho,
+      sentFromApp: m.sentFromApp,
+      fromMe: m.fromMe,
+      direction: m.direction,
+      inbound: m.inbound,
+      status: m.status,
+      authorName: m.authorName || null,
+      authorId: m.authorId || null,
+      crmMessageId: m.crmMessageId || m.crm_message_id || null,
+      type: m.type || null,
+    }));
+  }
+  const muted = await managerMute.noteManagerActivityAsync(messages, {
     extractChatId,
     normalizePhone: sheets.normalizePhone,
     isGroup,
@@ -271,6 +294,7 @@ function noteManagerActivity(messages) {
       chatId: row.key,
       reason: row.reason,
       hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+      blob: !!process.env.BLOB_READ_WRITE_TOKEN,
     }));
   }
 }
@@ -284,6 +308,13 @@ async function refreshMuteSheet() {
   } catch (e) {
     managerMute.markSheetFetchAttempt();
   }
+}
+
+/** Refresh Blob + optional sheet before deciding to answer. */
+async function refreshMuteStores(opts) {
+  opts = opts || {};
+  await managerMute.refreshRemote({ force: opts.force === true });
+  await refreshMuteSheet();
 }
 
 function historyFor(chatId) {
@@ -373,8 +404,8 @@ async function handleChat(chatId, parts) {
   const lockId = burstCrmMessageId(chatId, parts);
 
   // Manager already in this chat → stay silent (do not answer "together").
-  await refreshMuteSheet();
-  if (isChatMuted(chatId)) {
+  await refreshMuteStores({ force: true });
+  if (await isChatMuted(chatId, { force: true })) {
     console.log("wazzup: muted (manager active)", JSON.stringify({
       chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
     }));
@@ -437,13 +468,13 @@ async function handleChat(chatId, parts) {
 
   // Mute as soon as we know it's a handoff — even if Wazzup send fails later.
   if (needsManager) {
-    muteChat(chatId, "bot_handoff");
+    await muteChat(chatId, "bot_handoff");
     console.log("wazzup: handoff → keep unanswered badge", JSON.stringify({ chatId }));
   }
 
-  // Manager may have written while we were calling DeepSeek — re-check before send.
-  await refreshMuteSheet();
-  if (!needsManager && isChatMuted(chatId)) {
+  // Manager may have written while we were calling DeepSeek — re-check Blob before send.
+  await refreshMuteStores({ force: true });
+  if (!needsManager && (await isChatMuted(chatId, { force: true }))) {
     console.log("wazzup: muted before send (manager won race)", JSON.stringify({
       chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
     }));
@@ -517,9 +548,6 @@ module.exports = async (req, res) => {
   }
 
   const allMessages = Array.isArray(body.messages) ? body.messages : [];
-  // Manager messages are outbound (isEcho) — learn them BEFORE filtering to inbound.
-  noteManagerActivity(allMessages);
-
   const messages = allMessages.filter(actionable);
   const chats = groupByChat(messages);
 
@@ -529,9 +557,11 @@ module.exports = async (req, res) => {
   // Blocklist BEFORE STT (voice URLs + Whisper cost). Then materialize voice
   // immediately (Wazzup store links expire) and debounce text handling.
   const work = (async () => {
-    await refreshMuteSheet();
+    // Manager outbounds first — persist mute to Blob before any AI reply.
+    await noteManagerActivity(allMessages);
+    await refreshMuteStores({ force: true });
     await Promise.all(chats.map(async ({ chatId, messages: ms }) => {
-    if (isChatMuted(chatId)) {
+    if (await isChatMuted(chatId, { force: true })) {
       console.log("wazzup: muted (manager active)", JSON.stringify({
         chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
       }));

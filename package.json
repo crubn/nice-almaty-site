@@ -8,6 +8,7 @@
     "wazzup": "node scripts/wazzup.js"
   },
   "dependencies": {
+    "@vercel/blob": "^2.6.1",
     "@vercel/functions": "^1.5.0"
   }
 }

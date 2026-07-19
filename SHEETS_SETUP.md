@@ -152,6 +152,7 @@ Project → **Settings → Environment Variables**:
 | `SHEETS_TAB_ROUTES` | нет | имя вкладки маршрутов (по умолч. `Маршруты`) |
 | `SHEETS_TAB_IGNORE` | нет | вкладка игнора WhatsApp (по умолч. `Игнор бота`) |
 | `SHEETS_TAB_MUTE` | нет | вкладка «бот молчит» (по умолч. `Молчит бот`) |
+| `BLOB_READ_WRITE_TOKEN` | да* | Vercel Blob — общее mute между инстансами (*нужен для WhatsApp mute) |
 | `WA_BLOCKLIST` | нет | телефоны через запятую — бот им не отвечает (приватно) |
 | `WA_MANAGER_MUTE_MS` | нет | сколько мс молчать после менеджера (по умолч. 12 часов) |
 
