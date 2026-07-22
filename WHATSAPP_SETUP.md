@@ -115,6 +115,7 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   writes (`isEcho: true`), the bot stays silent for **5 minutes** (`WA_MANAGER_MUTE_MS`).
   Every Admin API send is recorded (`messageId` + text fingerprint in Blob) so Wazzup
   webhook echoes of bot replies are **never** treated as Phone — even with `isEcho: true`.
+  `[МЕНЕДЖЕР]` handoff keeps the unanswered badge but does **not** mute follow-ups.
   **Wazzup UI does not mute.** Optional sheet tab `Молчит бот` still works.
 - **Privacy:** residents' names never leave the table; only availability counts, room
   statuses, and booking dates are in the data the model sees.

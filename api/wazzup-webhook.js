@@ -519,16 +519,17 @@ async function handleChat(chatId, parts) {
   });
   if (!reply) return;
 
-  // Mute as soon as we know it's a handoff — even if Wazzup send fails later.
+  // Handoff marker → keep unanswered badge for managers, but do NOT mute the chat.
+  // Mute is only for real Phone activity — otherwise follow-ups like «рядом с КазНУ»
+  // after an address question get silently dropped for 5 minutes.
   if (needsManager) {
-    await muteChat(chatId, "bot_handoff");
     console.log("wazzup: handoff → keep unanswered badge", JSON.stringify({ chatId }));
   }
 
   // Manager may have written while we were calling DeepSeek — re-check Blob before send.
   await refreshMuteStores({ force: true });
-  if (!needsManager && (await isChatMuted(chatId, { force: true }))) {
-    console.log("wazzup: muted before send (manager won race)", JSON.stringify({
+  if (await isChatMuted(chatId, { force: true })) {
+    console.log("wazzup: muted before send (Phone won race)", JSON.stringify({
       chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
     }));
     return;
