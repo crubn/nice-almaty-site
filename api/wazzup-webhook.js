@@ -20,6 +20,7 @@ const sheets = require("../lib/sheets.js");
 const transcribe = require("../lib/transcribe.js");
 const managerMute = require("../lib/manager-mute.js");
 const botSends = require("../lib/bot-sends.js");
+const wazzupContacts = require("../lib/wazzup-contacts.js");
 
 const WAZZUP_BASE = process.env.WAZZUP_API_BASE || "https://api.wazzup24.com/v3";
 
@@ -613,6 +614,16 @@ module.exports = async (req, res) => {
     await noteManagerActivity(allMessages);
     await refreshMuteStores({ force: true });
     await Promise.all(chats.map(async ({ chatId, messages: ms }) => {
+    // First inbound ever for this phone → create Wazzup contact (ids from 400↑).
+    const phone = sheets.normalizePhone(chatId) || String(chatId || "").replace(/\D/g, "");
+    const contactName = (ms[0] && ms[0].contact && (ms[0].contact.name || ms[0].contact.username))
+      || (ms[0] && ms[0].authorName)
+      || "";
+    await wazzupContacts.ensureContact(phone, {
+      name: contactName,
+      chatType: (ms[0] && ms[0].chatType) || "whatsapp",
+    }).catch((e) => console.warn("wazzup: ensureContact", (e && e.message) || e));
+
     if (await isChatMuted(chatId, { force: true })) {
       console.log("wazzup: muted (Phone active <5min)", JSON.stringify({
         chatId: managerMute.chatKey(chatId, sheets.normalizePhone),

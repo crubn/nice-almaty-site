@@ -36,6 +36,8 @@ Project → **Settings → Environment Variables** (or `vercel env add`):
 | `WAZZUP_WEBHOOK_SECRET` | strongly rec. | Random string; added to the webhook URL so only Wazzup can trigger it |
 | `BLOB_READ_WRITE_TOKEN` | yes (mute) | Vercel Blob token — shared manager-mute across serverless instances (auto-set when a Blob store is linked) |
 | `WA_MANAGER_MUTE_MS` | no | How long bot stays silent after Phone last wrote (default `300000` = 5 min). Each Phone message restarts the window. |
+| `WA_CONTACT_START_ID` | no | First auto-created Wazzup contact id (default `400`) |
+| `WAZZUP_RESPONSIBLE_USER_ID` | no | Wazzup CRM user id assigned to new contacts (default: first `/users` entry or `nice-bot-owner`) |
 | `OPENAI_API_KEY` or `GROQ_API_KEY` | for voice | Whisper transcription of WhatsApp voice notes (either one is enough). Groq free tier works (`whisper-large-v3`). Without a key the bot asks to write in text. |
 | `WHISPER_MODEL` | no | Override model (`whisper-1` / `whisper-large-v3`) |
 | `WHISPER_LANGUAGE` | no | Force language code (`ru`, `kk`, …). Default: auto-detect |
@@ -106,6 +108,9 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   address, complaints, booking transfer…), it sends `clearUnanswered: false` so the
   chat stays **unanswered/green** for managers. Ordinary bot answers send
   `clearUnanswered: true` so the counter clears (chat looks handled).
+- **Auto contacts:** on a customer's first inbound WhatsApp message the bot creates a
+  Wazzup contact via `POST /v3/contacts` with sequential ids starting at **400**
+  (`WA_CONTACT_START_ID`). Mapping phone→id is stored in Vercel Blob.
 - **Manager mute (Phone):** the bot answers **immediately** by default. When **Phone**
   writes (`isEcho: true`), the bot stays silent for **5 minutes** (`WA_MANAGER_MUTE_MS`).
   Every Admin API send is recorded (`messageId` + text fingerprint in Blob) so Wazzup
