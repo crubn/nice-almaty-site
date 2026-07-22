@@ -34,7 +34,9 @@ Project → **Settings → Environment Variables** (or `vercel env add`):
 | `WAZZUP_API_KEY` | yes | Wazzup API key from step 2 |
 | `WAZZUP_CHANNEL_ID` | yes | Your WhatsApp channel id (find it: `channels` below) |
 | `WAZZUP_WEBHOOK_SECRET` | strongly rec. | Random string; added to the webhook URL so only Wazzup can trigger it |
-| `BLOB_READ_WRITE_TOKEN` | yes (mute) | Vercel Blob token — shared manager-mute across serverless instances (auto-set when a Blob store is linked) |
+| `BLOB_READ_WRITE_TOKEN` | yes (mute) | Vercel Blob token — shared manager-mute + pending queue across serverless instances (auto-set when a Blob store is linked) |
+| `WA_MANAGER_GRACE_MS` | no | Wait for Phone/manager before bot replies (default `300000` = 5 min) |
+| `WA_MANAGER_MUTE_MS` | no | How long bot stays silent after Phone/manager reply (default `3600000` = 1 hour) |
 | `OPENAI_API_KEY` or `GROQ_API_KEY` | for voice | Whisper transcription of WhatsApp voice notes (either one is enough). Groq free tier works (`whisper-large-v3`). Without a key the bot asks to write in text. |
 | `WHISPER_MODEL` | no | Override model (`whisper-1` / `whisper-large-v3`) |
 | `WHISPER_LANGUAGE` | no | Force language code (`ru`, `kk`, …). Default: auto-detect |
@@ -105,12 +107,13 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   address, complaints, booking transfer…), it sends `clearUnanswered: false` so the
   chat stays **unanswered/green** for managers. Ordinary bot answers send
   `clearUnanswered: true` so the counter clears (chat looks handled).
-- **Manager mute:** after `[МЕНЕДЖЕР]`, or when a human writes from Wazzup UI / phone
-  (`isEcho` / `sentFromApp` / `fromMe` / `authorName`), the bot **stops answering
-  that chat** for ~12h (`WA_MANAGER_MUTE_MS`) so it does not reply together with
-  the manager. Mute is stored in **Vercel Blob** (`BLOB_READ_WRITE_TOKEN`) so every
-  serverless instance sees it. Optional extra list: sheet tab `Молчит бот` with
-  columns `Телефон`, `До` (date).
+- **Manager mute (Phone grace):** after a customer message the bot **waits 5 minutes**
+  (`WA_MANAGER_GRACE_MS`) for a human reply from Phone / Wazzup. If Phone answers in
+  that window, the bot **stays silent for 1 hour** (`WA_MANAGER_MUTE_MS`) and drops the
+  pending reply. If Phone does not answer within 5 minutes, the bot answers. Handoff
+  `[МЕНЕДЖЕР]` also mutes for 1 hour. State lives in **Vercel Blob**. Cron
+  `/api/cron-pending` (every minute) flushes due replies. Optional sheet tab
+  `Молчит бот` with columns `Телефон`, `До` still works as a manual list.
 - **Privacy:** residents' names never leave the table; only availability counts, room
   statuses, and booking dates are in the data the model sees.
 - **Idempotency:** v1 does not de-duplicate Wazzup retries. We ack fast (`200`) to avoid

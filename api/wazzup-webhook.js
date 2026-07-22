@@ -19,6 +19,7 @@ const bot = require("../lib/bot.js");
 const sheets = require("../lib/sheets.js");
 const transcribe = require("../lib/transcribe.js");
 const managerMute = require("../lib/manager-mute.js");
+const pendingReply = require("../lib/pending-reply.js");
 
 const WAZZUP_BASE = process.env.WAZZUP_API_BASE || "https://api.wazzup24.com/v3";
 
@@ -253,8 +254,10 @@ async function muteChat(chatId, reason) {
       chatId: row.key,
       reason: row.reason,
       hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+      graceMin: managerMute.GRACE_MS / 60000,
       blob: !!process.env.BLOB_READ_WRITE_TOKEN,
     }));
+    await pendingReply.cancel(row.key).catch(() => {});
   }
 }
 
@@ -289,13 +292,21 @@ async function noteManagerActivity(messages) {
     normalizePhone: sheets.normalizePhone,
     isGroup,
   });
+  const mutedKeys = [];
   for (const row of muted) {
+    mutedKeys.push(row.key);
     console.log("wazzup: mute for manager", JSON.stringify({
       chatId: row.key,
       reason: row.reason,
       hours: managerMute.DEFAULT_MUTE_MS / 3600000,
+      graceMin: managerMute.GRACE_MS / 60000,
       blob: !!process.env.BLOB_READ_WRITE_TOKEN,
     }));
+  }
+  // Phone took the chat → drop any waiting bot reply for those chats.
+  if (mutedKeys.length) {
+    const n = await pendingReply.cancelMany(mutedKeys).catch(() => 0);
+    if (n) console.log("wazzup: cancelled pending after Phone", JSON.stringify({ n, keys: mutedKeys }));
   }
 }
 
@@ -363,11 +374,11 @@ function groupByChat(messages) {
   return order.map((chatId) => ({ chatId, messages: map.get(chatId) }));
 }
 
-// Debounce per chat on the SAME isolate. Cross-isolate doubles are stopped by
-// crmMessageId burst lock in sendReply (see burstCrmMessageId).
+// Short debounce merges rapid double-sends on the SAME isolate, then we schedule
+// a 5-minute Phone-grace pending (Blob). The bot answers only after grace if
+// Phone/manager never replied (cron + opportunistic flush).
 const PENDING = new Map(); // chatId -> { messages, waiters, timer }
 const INFLIGHT = new Map(); // chatId -> Promise (serialize handleChat per chat)
-// ≥12–15s so «Я учусь в кому» + quick correction «Крму» merge into one reply.
 const DEBOUNCE_MS = Number(process.env.WA_DEBOUNCE_MS || 15000);
 
 function enqueueChat(chatId, parts) {
@@ -384,8 +395,8 @@ function enqueueChat(chatId, parts) {
       PENDING.delete(chatId);
       const batch = slot.messages;
       const waiters = slot.waiters;
-      const run = () => handleChat(chatId, batch)
-        .catch((e) => console.error("wazzup: handleChat error", (e && e.name) || e));
+      const run = () => scheduleAfterDebounce(chatId, batch)
+        .catch((e) => console.error("wazzup: schedule error", (e && e.name) || e));
       const prev = INFLIGHT.get(chatId);
       const chain = (prev ? prev.then(run, run) : run()).finally(() => {
         if (INFLIGHT.get(chatId) === chain) INFLIGHT.delete(chatId);
@@ -394,6 +405,53 @@ function enqueueChat(chatId, parts) {
       INFLIGHT.set(chatId, chain);
     }, DEBOUNCE_MS);
   });
+}
+
+async function scheduleAfterDebounce(chatId, parts) {
+  const key = managerMute.chatKey(chatId, sheets.normalizePhone);
+  if (await isChatMuted(chatId, { force: true })) {
+    console.log("wazzup: skip schedule (muted)", JSON.stringify({ chatId: key }));
+    return;
+  }
+  const first = parts[0] || {};
+  const row = await pendingReply.schedule(key, parts, {
+    chatId,
+    channelId: first.channelId || process.env.WAZZUP_CHANNEL_ID,
+    chatType: first.chatType || "whatsapp",
+    graceMs: managerMute.GRACE_MS,
+  });
+  console.log("wazzup: pending Phone grace", JSON.stringify({
+    chatId: key,
+    parts: (parts || []).length,
+    answerInSec: Math.round((row.answerAfter - Date.now()) / 1000),
+    graceMin: managerMute.GRACE_MS / 60000,
+  }));
+}
+
+/** Process due pending replies (after 5-min grace, Phone never answered). */
+async function flushDuePendings() {
+  const due = await pendingReply.takeDue().catch((e) => {
+    console.warn("wazzup: takeDue failed", (e && e.message) || e);
+    return [];
+  });
+  if (!due.length) return 0;
+  let n = 0;
+  for (const row of due) {
+    const chatId = row.chatId || row.chatKey;
+    if (await isChatMuted(chatId, { force: true })) {
+      console.log("wazzup: due pending skipped (muted)", JSON.stringify({
+        chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
+      }));
+      continue;
+    }
+    console.log("wazzup: grace elapsed → bot answers", JSON.stringify({
+      chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
+      waitedSec: Math.round((Date.now() - (row.createdAt || Date.now())) / 1000),
+    }));
+    await handleChat(chatId, row.parts || []);
+    n++;
+  }
+  return n;
 }
 
 async function handleChat(chatId, parts) {
@@ -560,11 +618,15 @@ module.exports = async (req, res) => {
     // Manager outbounds first — persist mute to Blob before any AI reply.
     await noteManagerActivity(allMessages);
     await refreshMuteStores({ force: true });
+    // Opportunistic: answer anything whose 5-min Phone grace already elapsed.
+    await flushDuePendings().catch((e) => console.warn("wazzup: flush error", (e && e.message) || e));
     await Promise.all(chats.map(async ({ chatId, messages: ms }) => {
     if (await isChatMuted(chatId, { force: true })) {
       console.log("wazzup: muted (manager active)", JSON.stringify({
         chatId: managerMute.chatKey(chatId, sheets.normalizePhone),
       }));
+      // Drop any leftover pending for this chat.
+      await pendingReply.cancel(managerMute.chatKey(chatId, sheets.normalizePhone)).catch(() => {});
       return;
     }
     const ignored = await sheets.getIgnoredPhones().catch(() => []);
@@ -589,3 +651,5 @@ module.exports = async (req, res) => {
   })();
   if (waitUntil) { waitUntil(work); } else { await work; }
 };
+
+module.exports.flushDuePendings = flushDuePendings;
