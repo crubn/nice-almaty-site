@@ -19,6 +19,7 @@ const bot = require("../lib/bot.js");
 const sheets = require("../lib/sheets.js");
 const transcribe = require("../lib/transcribe.js");
 const managerMute = require("../lib/manager-mute.js");
+const botSends = require("../lib/bot-sends.js");
 
 const WAZZUP_BASE = process.env.WAZZUP_API_BASE || "https://api.wazzup24.com/v3";
 
@@ -164,6 +165,13 @@ async function sendReply(channelId, chatId, chatType, text, crmMessageId, opts) 
   // Always send the boolean explicitly (omit was unreliable in practice).
   const keepUnanswered = opts.clearUnanswered === false;
   body.clearUnanswered = keepUnanswered ? false : true;
+  // Register BEFORE the HTTP round-trip so a fast webhook echo cannot race ahead
+  // and be mistaken for Phone (isEcho=true without our crmMessageId yet).
+  const key = managerMute.chatKey(chatId, sheets.normalizePhone);
+  await botSends.recordSend(key, {
+    crmMessageId,
+    text,
+  }).catch(() => {});
   try {
     const r = await fetch(`${WAZZUP_BASE}/message`, {
       method: "POST",
@@ -179,14 +187,27 @@ async function sendReply(channelId, chatId, chatType, text, crmMessageId, opts) 
       console.error("wazzup send failed", r.status, detail.slice(0, 300));
       return { ok: false };
     }
+    let messageId = null;
+    try {
+      const payload = await r.json();
+      messageId = payload && (payload.messageId || payload.message_id) || null;
+    } catch (e) { /* no body */ }
+    if (messageId) {
+      await botSends.recordSend(key, {
+        messageId,
+        crmMessageId,
+        text,
+      }).catch(() => {});
+    }
     console.log("wazzup: replied", JSON.stringify({
       chatId,
       len: text.length,
       crmMessageId: crmMessageId || null,
+      messageId,
       clearUnanswered: body.clearUnanswered,
       needsManager: keepUnanswered,
     }));
-    return { ok: true };
+    return { ok: true, messageId };
   } catch (e) {
     console.error("wazzup send error", (e && e.name) || e);
     return { ok: false };
@@ -226,7 +247,18 @@ async function sendMedia(channelId, chatId, chatType, url, caption, opts) {
       console.error("wazzup media failed", r.status, detail.slice(0, 300));
       await linkFallback();
     } else {
-      console.log("wazzup: sent media", JSON.stringify({ chatId, clearUnanswered: body.clearUnanswered }));
+      let messageId = null;
+      try {
+        const payload = await r.json();
+        messageId = payload && (payload.messageId || payload.message_id) || null;
+      } catch (e) { /* ignore */ }
+      const key = managerMute.chatKey(chatId, sheets.normalizePhone);
+      await botSends.recordSend(key, {
+        messageId,
+        crmMessageId: opts.crmMessageId,
+        text: caption || url,
+      }).catch(() => {});
+      console.log("wazzup: sent media", JSON.stringify({ chatId, clearUnanswered: body.clearUnanswered, messageId }));
     }
   } catch (e) {
     console.error("wazzup media error", (e && e.name) || e);
@@ -263,51 +295,42 @@ async function isChatMuted(chatId, opts) {
 }
 
 async function noteManagerActivity(messages) {
-  // Classify every outbound so we can see Phone vs Admin API in logs.
+  // Load our recent Admin API sends so we never mute on our own webhook echoes.
+  await botSends.loadAll(true).catch(() => {});
   for (const m of messages || []) {
     if (!m || typeof m !== "object") continue;
     if (isGroup(m)) continue;
     if (!isOutbound(m) && m.isEcho !== true && m.sentFromApp !== true) continue;
-    const kind = managerMute.classifyOutbound(m, isGroup);
+    const chatId = extractChatId(m);
+    const key = managerMute.chatKey(chatId, sheets.normalizePhone);
+    const kind = managerMute.classifyOutbound(m, isGroup, {
+      isOurSend: (msg) => botSends.isOurSend(msg, key),
+    });
     if (kind === "phone") {
       console.log("wazzup: outbound phone", JSON.stringify({
-        chatId: sheets.normalizePhone(extractChatId(m)) || extractChatId(m),
+        chatId: key || chatId,
         authorName: m.authorName || null,
         authorId: m.authorId || null,
         isEcho: m.isEcho,
-        sentFromApp: m.sentFromApp,
+        messageId: m.messageId || m.message_id || null,
         crmMessageId: m.crmMessageId || m.crm_message_id || null,
         text: String(m.text || "").slice(0, 80),
-      }));
-    } else if (m.isEcho === true) {
-      // isEcho without author → almost certainly Admin API echo, not Phone.
-      console.log("wazzup: isEcho without author (skip mute)", JSON.stringify({
-        chatId: sheets.normalizePhone(extractChatId(m)) || extractChatId(m),
-        kind,
-        authorName: m.authorName || null,
-        authorId: m.authorId || null,
-        crmMessageId: m.crmMessageId || m.crm_message_id || null,
-        text: String(m.text || "").slice(0, 80),
-      }));
-    } else if (kind === "other" || kind === "unknown") {
-      console.log("wazzup: outbound unclassified", JSON.stringify({
-        chatId: sheets.normalizePhone(extractChatId(m)) || extractChatId(m),
-        kind,
-        isEcho: m.isEcho,
-        sentFromApp: m.sentFromApp,
-        fromMe: m.fromMe,
-        direction: m.direction,
-        inbound: m.inbound,
-        status: m.status,
-        authorName: m.authorName || null,
-        authorId: m.authorId || null,
-        crmMessageId: m.crmMessageId || m.crm_message_id || null,
-        type: m.type || null,
       }));
     } else if (kind === "admin_api") {
-      console.log("wazzup: outbound admin_api (ignored for mute)", JSON.stringify({
-        chatId: sheets.normalizePhone(extractChatId(m)) || extractChatId(m),
+      console.log("wazzup: outbound admin_api (our send / ignored)", JSON.stringify({
+        chatId: key || chatId,
+        isEcho: m.isEcho,
+        messageId: m.messageId || m.message_id || null,
         crmMessageId: m.crmMessageId || m.crm_message_id || null,
+        text: String(m.text || "").slice(0, 60),
+      }));
+    } else if (m.isEcho === true) {
+      console.log("wazzup: isEcho not muted", JSON.stringify({
+        chatId: key || chatId,
+        kind,
+        authorName: m.authorName || null,
+        crmMessageId: m.crmMessageId || m.crm_message_id || null,
+        text: String(m.text || "").slice(0, 80),
       }));
     }
   }
@@ -315,6 +338,7 @@ async function noteManagerActivity(messages) {
     extractChatId,
     normalizePhone: sheets.normalizePhone,
     isGroup,
+    isOurSend: (m, key) => botSends.isOurSend(m, key),
   });
   for (const row of muted) {
     console.log("wazzup: mute for manager", JSON.stringify({

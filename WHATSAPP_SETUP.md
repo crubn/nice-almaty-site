@@ -107,12 +107,10 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   chat stays **unanswered/green** for managers. Ordinary bot answers send
   `clearUnanswered: true` so the counter clears (chat looks handled).
 - **Manager mute (Phone):** the bot answers **immediately** by default. When **Phone**
-  writes (`isEcho: true` — WhatsApp handset / iframe, **not** Admin API), the bot
-  stays silent for **5 minutes** (`WA_MANAGER_MUTE_MS`). Each new Phone message
-  restarts that window. Phone mute requires `isEcho` **and** `authorName`/`authorId`
-  (guards against false Admin API webhook echoes). After 5 minutes without Phone,
-  the bot answers again. **Wazzup UI (`sentFromApp`) does not mute.** Admin API
-  echoes (`crmMessageId` `nice-bot-*` or `isEcho` without author) never mute.
+  writes (`isEcho: true`), the bot stays silent for **5 minutes** (`WA_MANAGER_MUTE_MS`).
+  Every Admin API send is recorded (`messageId` + text fingerprint in Blob) so Wazzup
+  webhook echoes of bot replies are **never** treated as Phone — even with `isEcho: true`.
+  **Wazzup UI does not mute.** Optional sheet tab `Молчит бот` still works.
 - **Privacy:** residents' names never leave the table; only availability counts, room
   statuses, and booking dates are in the data the model sees.
 - **Idempotency:** v1 does not de-duplicate Wazzup retries. We ack fast (`200`) to avoid
