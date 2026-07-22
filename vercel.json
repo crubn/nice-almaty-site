@@ -9,11 +9,5 @@
       "includeFiles": "data/**",
       "maxDuration": 120
     }
-  },
-  "crons": [
-    {
-      "path": "/api/cron-pending",
-      "schedule": "* * * * *"
-    }
-  ]
+  }
 }

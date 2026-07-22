@@ -108,12 +108,13 @@ WAZZUP_API_KEY=xxx node scripts/wazzup.js get-webhook
   chat stays **unanswered/green** for managers. Ordinary bot answers send
   `clearUnanswered: true` so the counter clears (chat looks handled).
 - **Manager mute (Phone grace):** after a customer message the bot **waits 5 minutes**
-  (`WA_MANAGER_GRACE_MS`) for a human reply from Phone / Wazzup. If Phone answers in
-  that window, the bot **stays silent for 1 hour** (`WA_MANAGER_MUTE_MS`) and drops the
-  pending reply. If Phone does not answer within 5 minutes, the bot answers. Handoff
-  `[МЕНЕДЖЕР]` also mutes for 1 hour. State lives in **Vercel Blob**. Cron
-  `/api/cron-pending` (every minute) flushes due replies. Optional sheet tab
-  `Молчит бот` with columns `Телефон`, `До` still works as a manual list.
+  (`WA_MANAGER_GRACE_MS`) for a **Phone** reply (`isEcho: true` — WhatsApp handset /
+  iframe, **not** Admin API). Wazzup UI (`sentFromApp`) also counts as human.
+  Admin API echoes (`crmMessageId` `nice-bot-*`) never mute. If Phone answers in
+  the window, the bot **stays silent for 1 hour** (`WA_MANAGER_MUTE_MS`). If not,
+  the bot answers. Pending queue + mute live in **Vercel Blob**. Due replies are
+  flushed via chained self-wakes to `/api/cron-pending` (Hobby-safe; no per-minute
+  Vercel Cron required). Optional sheet tab `Молчит бот` still works.
 - **Privacy:** residents' names never leave the table; only availability counts, room
   statuses, and booking dates are in the data the model sees.
 - **Idempotency:** v1 does not de-duplicate Wazzup retries. We ack fast (`200`) to avoid

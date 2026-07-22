@@ -434,6 +434,40 @@ async function scheduleAfterDebounce(chatId, parts) {
     answerInSec: Math.round((row.answerAfter - Date.now()) / 1000),
     graceMin: managerMute.GRACE_MS / 60000,
   }));
+  // Hobby has no per-minute cron — chain short self-wakes until grace elapses.
+  armPendingWake();
+}
+
+function publicBaseUrl() {
+  if (process.env.WA_PUBLIC_BASE_URL) return process.env.WA_PUBLIC_BASE_URL.replace(/\/$/, "");
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return "https://" + String(process.env.VERCEL_PROJECT_PRODUCTION_URL).replace(/^https?:\/\//, "");
+  }
+  if (process.env.VERCEL_URL) return "https://" + String(process.env.VERCEL_URL).replace(/^https?:\/\//, "");
+  return "";
+}
+
+/** Self-hit /api/cron-pending after ~55s so due replies flush without Vercel Cron. */
+function armPendingWake() {
+  const base = publicBaseUrl();
+  const secret = process.env.CRON_SECRET || process.env.WAZZUP_WEBHOOK_SECRET || "";
+  if (!base || !secret) {
+    console.warn("wazzup: cannot arm pending wake (missing base url or secret)");
+    return;
+  }
+  const url = base + "/api/cron-pending?secret=" + encodeURIComponent(secret) + "&wake=1";
+  const delayMs = Number(process.env.WA_PENDING_WAKE_MS || 55_000);
+  const work = (async () => {
+    await new Promise((r) => setTimeout(r, delayMs));
+    try {
+      const r = await fetch(url, { method: "GET" });
+      console.log("wazzup: pending wake ping", JSON.stringify({ status: r.status }));
+    } catch (e) {
+      console.warn("wazzup: pending wake failed", (e && e.message) || e);
+    }
+  })();
+  if (waitUntil) waitUntil(work);
+  else work.catch(() => {});
 }
 
 /** Process due pending replies (after 5-min grace, Phone never answered). */
